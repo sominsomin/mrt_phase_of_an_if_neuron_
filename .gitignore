@@ -1,0 +1,9 @@
+*.jpg
+*.mp4
+/venv/*
+*/__pycache__/*
+__pycache__/*
+*.pkl
+*.pyc
+*.pickle
+*.isochrone
