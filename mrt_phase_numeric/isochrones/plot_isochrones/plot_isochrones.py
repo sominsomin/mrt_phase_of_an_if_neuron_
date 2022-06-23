@@ -20,8 +20,8 @@ v_th = equation_config['v_th']
 tau_a = equation_config['tau_a']
 delta_a = equation_config['delta_a']
 
-D = 0.5
-D = 0.25
+D = 1.0
+# D = 0.25
 
 det_file_paths = '../../data/results/isochrones/from_timeseries_grid/deterministic/D_0.0'
 stochastic = f'..\\..\\data\\results\\isochrones\\from_timeseries\\stochastic\\D_{D}'
@@ -67,10 +67,10 @@ def load_isochrones(data_location):
 
 
 def plot_isochrones(isochrones_list):
-    # exclude = ['phi_0.4']
-    exclude = []
+    exclude = ['phi_0.4']
+    # exclude = ['phi_0.6']
+    # exclude = []
 
-    legend = []
     for key in isochrones_list.keys():
         if key in exclude:
             continue
@@ -85,10 +85,15 @@ def plot_isochrones(isochrones_list):
                 # if len(curve.points) > 10:
                 #     curve[:, 1] = savgol_filter(curve.points[:, 1], 7, 3)
                 #
-                plt.plot(curve[:, 0], curve[:, 1], label='stochastic isochrones')
-                legend.append(f'{i} : {key}')
 
-    # plt.legend(legend)
+                # idx_v_zero = -1
+                # v = curve[idx_v_zero, 0]
+                # a = curve[idx_v_zero, 1]
+                #
+                # if a < 3:
+                #     plt.text(v, a, f'${key.split("_")[1]} $')
+
+                plt.plot(curve[:, 0], curve[:, 1], 'b') #, label='stochastic isochrones')
 
 
 if __name__=='__main__':
@@ -115,7 +120,7 @@ if __name__=='__main__':
 
     # plt.legend([])
 
-    # plt.savefig(f'..\\img\\all_isochrones_comparison\\D_{D}.png')
+    plt.savefig(f'..\\img\\all_isochrones_comparison\\D_{D}.png')
 
     plt.show()
 

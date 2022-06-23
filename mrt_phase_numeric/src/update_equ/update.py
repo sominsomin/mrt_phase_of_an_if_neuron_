@@ -81,7 +81,7 @@ def integrate_forwards(v_init, a_init, max_n_cycles, D, dt):
 
     i = 0
 
-    if v_init >= 1.0:
+    if v_init > 1.0:
         y_ = [1]
         i += 1
     else:

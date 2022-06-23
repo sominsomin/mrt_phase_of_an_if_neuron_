@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 from mrt_phase_numeric.src.config import equation_config
 from mrt_phase_pde.pde.own_method.src.T_0.T_0 import T_0
 from mrt_phase_numeric.src.update_equ.update import update_, integrate_forwards
+from mrt_phase_pde.pde.own_method.src.exit_point_distribution.exit_point_distribution import ExitPointDistribution
+
 
 mu = equation_config['mu']
 v_th = equation_config['v_th']
@@ -19,7 +21,7 @@ a_min = 0
 a_max = 10
 
 n_v = int((v_max - v_min)) * 20 + 1
-n_a = int((a_max - a_min)) * 10 + 1
+n_a = int((a_max - a_min)) * 20 + 1
 
 # n_v = 20
 # n_a = 40
@@ -36,38 +38,57 @@ n_thr_crossings = 1
 def update_until_line_cross(v, a):
     v_, a_, y_ = integrate_forwards(v, a, n_thr_crossings, D, dt)
 
-    n_timesteps = len(v_)
-    return n_timesteps
+    return v_, a_
 
 
-def get_mean_rt(v, a):
+def get_rt_a_distr(_v, _a):
     rt = []
+    a_distr = []
+
+    a_bins = np.insert(a, len(a), a[-1] + np.diff(a)[0])
+    a_bins = a_bins - np.diff(a)[0] / 2
+
     for i in range(n_trajectories):
-        n_timesteps = update_until_line_cross(v, a)
+        v_, a_ = update_until_line_cross(_v, _a)
+
+        n_timesteps = len(v_)
         rt.append(n_timesteps * dt)
+        a_distr.append(a_[-1])
 
-    return np.mean(rt)
+    a_distr = np.array(a_distr)
+    hist = plt.hist(a_distr, bins=a_bins, density=True)
+    p = hist[0]
+
+    mean_rt = np.mean(rt)
+
+    return mean_rt, p
 
 
-def get_mean_T():
+def _get():
     T = np.zeros((len(v), len(a)))
+    prob = [[None for j in a] for i in v]
 
     for i, _v in enumerate(v):
         print(f'v : {_v}')
         for j, _a in enumerate(a):
             print(f'a : {_a}')
-            mean_rt = get_mean_rt(_v, _a)
+            mean_rt, p = get_rt_a_distr(_v, _a)
+
+            prob[i][j] = p
             T[i, j] = mean_rt
 
-    return T
+    return T, prob
 
 
 if __name__=='__main__':
 
-    T = get_mean_T()
+    T, prob = _get()
 
     T_0_ = T_0(v, a, T)
     T_0_.save(f'..\\..\\data\\T_0_D_{D}_sim_n_thr_{n_thr_crossings}.pickle')
+
+    exit_point_distribution = ExitPointDistribution(v, a, prob)
+    exit_point_distribution.save(f'..\\..\\data\\epd_sim_D_{D}.pickle')
 
     __x, __y = np.meshgrid(v, a)
 

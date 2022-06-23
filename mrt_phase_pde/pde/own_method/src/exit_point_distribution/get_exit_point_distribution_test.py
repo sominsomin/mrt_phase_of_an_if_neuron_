@@ -7,10 +7,10 @@ from mrt_phase_pde.pde.own_method.src.exit_point_distribution.exit_point_distrib
 D = 0.0
 dt = 0.01
 
-v_min = -1
+v_min = 1
 v_max = 1
 a_min = 0
-a_max = 10
+a_max = 20
 
 n_v = int(v_max - v_min) * 20 + 1
 n_a = int(a_max - a_min) * 10 + 1
@@ -72,7 +72,12 @@ def get_exit_point_distribution(v, a):
 
 
 if __name__ == '__main__':
+    # for a  in range(0, 20):
+    #     v_, a_, y_ = integrate_forwards(1.0, a, 1, D, dt)
+    #     print(len(v_) * dt)
+    #     plt.plot(v_,a_)
+
     prob = get_exit_point_distribution(v, a)
 
-    exit_point_distribution = ExitPointDistribution(v, a, prob)
-    exit_point_distribution.save(f'..\\..\\data\\epd_sim_D_{D}.pickle')
+    # exit_point_distribution = ExitPointDistribution(v, a, prob)
+    # exit_point_distribution.save(f'..\\..\\data\\epd_sim_D_{D}.pickle')

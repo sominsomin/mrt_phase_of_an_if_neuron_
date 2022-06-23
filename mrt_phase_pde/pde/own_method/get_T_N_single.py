@@ -15,19 +15,30 @@ v_th = equation_config['v_th']
 tau_a = equation_config['tau_a']
 Delta_a = equation_config['delta_a']
 
-
-D = 0.25
+D = .0
 
 v_min = -1
 v_max = 1
 a_min = 0
 a_max = 4
 
-n_v = int(v_max - v_min) * 10 + 1
+n_v = int(v_max - v_min) * 20 + 1
 n_a = int(a_max - a_min) * 10 + 1
 
 v = np.linspace(v_min, v_max, n_v)
 a = np.linspace(a_min, a_max, n_a)
+
+
+def plot_isochrones(isochrones_list, draw=None):
+    legend_str = []
+    for key in isochrones_list.keys():
+        curves = isochrones_list[key]
+        for i, curve in enumerate(curves):
+            if curve.points.any():
+                if draw:
+                    plt.plot(curve[:, 0], curve[:, 1], draw)
+                else:
+                    plt.plot(curve[:, 0], curve[:, 1])
 
 
 if __name__ == '__main__':
@@ -45,7 +56,9 @@ if __name__ == '__main__':
 
     a_max = np.max(T_0.a)
 
-    for l in range(8):
+    l_max = int(a_max) - 5 # 5
+
+    for l in range(l_max):
         print(f'l: {l}')
         a_max -= 1
 
@@ -75,10 +88,14 @@ if __name__ == '__main__':
     for i, T in enumerate(T_N_all):
         if i == 0:
             continue
-        diff = T - T_N_all[i-1][:len(T)]
-        plt.plot(diff)
+        diff = T - T_N_all[i - 1][:len(T)]
+        plt.plot(np.linspace(a_min, np.max(T_0.a), int(np.max(T_0.a) - a_min) * 10 + 1)[:len(T)], diff)
 
-    plt.legend([str(i) for i in range(len(T_N_all))])
+    plt.title(f'$(T_N(0, a) - T_{{N-1}}(0, a))$ for various $N$, $D={D}$')
+    plt.xlabel('a')
+    plt.ylabel('$\Delta t$')
+    plt.legend([f'$T_{{{i+1}}}(0, a) - T_{{{i}}}(0, a)$' for i in range(len(T_N_all))])
+    plt.savefig(f'img\\difference_in_T_N_at_0_D_{D}.png')
 
     a_max -= 1
     n_a = int(a_max - a_min) * 10 + 1
@@ -96,55 +113,31 @@ if __name__ == '__main__':
             i_0 = np.where(_v == T_0.v)[0][0]
             j_0 = np.where(_a == T_0.a)[0][0]
 
-            if i == len(v) - 1:
-                print('')
-                if j == len(a) - 3:
-                    print('')
-
             T_add = np.sum(p * T_N_1[idx_a]) * np.diff(a)[0]
             T_N[i, j] = T_0[i_0, j_0] + T_add
 
-
     t_n = T_N_class(v, a, T_N, l + 1)
+    # l + 1
     t_n.save(f'result\\T_N_{l + 1}_D_{D}.pickle')
 
     __x, __y = np.meshgrid(v, a)
 
-    # plt.figure()
-    # plt.contourf(__x, __y, T_0.transpose(), levels=20)  # , v_min=-30, v_max=30)
-    # plt.colorbar()
-    # plt.xlabel('x')
-    # plt.ylabel('y')
-
-    # __x, __y = np.meshgrid(v[:-1], a)
-    # T_N = T_N[:-1, :]
-
     plt.figure()
-    plt.contourf(__x, __y, T_N.transpose(), levels=20)  # , v_min=-30, v_max=30)
+    plt.contourf(__x, __y, T_N.transpose(), levels=30)  # , v_min=-30, v_max=30)
     plt.colorbar()
     plt.xlabel('v')
     plt.ylabel('a')
     plt.ylim([0, 4])
-    plt.title(f'$D = {D}$, n_thr {l + 1}')
+    plt.title(
+        f'$T_{{{l + 1}}}(v,a)$, $D={D}$')
+        # f'\n $v_{{thr}}={v_th}$, $\\mu={mu}$, $\\tau_a={tau_a}$, $\\Delta_a={Delta_a}$')
 
+    plt.savefig(f'img\\T_N_{l + 1}_D_{D}.png')
 
-    def plot_isochrones(isochrones_list, draw=None):
-        legend_str = []
-        for key in isochrones_list.keys():
-            curves = isochrones_list[key]
-            for i, curve in enumerate(curves):
-                if curve.points.any():
-                    if draw:
-                        plt.plot(curve[:, 0], curve[:, 1], draw)
-                    else:
-                        plt.plot(curve[:, 0], curve[:, 1])
-
-    # det_file_paths = '..\\..\\..\\mrt_phase_numeric\\data\\results\\isochrones\\from_timeseries_grid\\deterministic\\D_0.0'
+    det_file_paths = '..\\..\\..\\mrt_phase_numeric\\data\\results\\isochrones\\from_timeseries_grid\\deterministic\\D_0.0'
     stochastic = f'..\\..\\..\\mrt_phase_numeric\\data\\results\\isochrones\\from_timeseries\\stochastic\\D_{D}'
-    #
-    # # isochrones = load_isochrones(det_file_paths)
-    isochrones = load_isochrones(stochastic)
+
+    isochrones = load_isochrones(det_file_paths)
+    # isochrones = load_isochrones(stochastic)
     plot_isochrones(isochrones, 'g--')
     plt.xlim([-1,1])
-
-    plt.legend()

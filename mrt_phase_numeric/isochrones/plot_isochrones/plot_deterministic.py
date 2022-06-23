@@ -25,7 +25,6 @@ det_file_paths = '../../data/results/isochrones/from_timeseries_grid/determinist
 
 
 def plot_isochrones(isochrones_list, draw=None):
-    legend_str = []
     for key in isochrones_list.keys():
         curves = isochrones_list[key]
         for i, curve in enumerate(curves):
@@ -35,7 +34,8 @@ def plot_isochrones(isochrones_list, draw=None):
                 # curve[:, 1] = savgol_filter(curve.points[:, 1], 5, 2)
 
                 try:
-                    idx_v_zero = np.where(curve[:, 0] == 0.0)[0][0]
+                    # idx_v_zero = np.where(curve[:, 0] == 0.0)[0][0]
+                    idx_v_zero = -1
                     v = curve[idx_v_zero, 0]
                     a = curve[idx_v_zero, 1]
 
@@ -48,10 +48,6 @@ def plot_isochrones(isochrones_list, draw=None):
                     plt.plot(curve[:, 0], curve[:, 1], draw)
                 else:
                     plt.plot(curve[:, 0], curve[:, 1])
-
-                legend_str.append(f'{key}_{i}')
-
-    return legend_str
 
 
 def load_isochrones_lukas():
@@ -83,13 +79,13 @@ if __name__=='__main__':
     plt.xlabel('v')
     plt.ylabel('a')
 
-    legend_str = plot_isochrones(isochrones_deterministic, 'b')
+    plot_isochrones(isochrones_deterministic, 'b')
 
     isochrones_lukas = load_isochrones_lukas()
-    plt.plot(isochrones_lukas[0][:, 0], isochrones_lukas[0][:, 1], 'b.', label='deterministic isochrones')
+    plt.plot(isochrones_lukas[0][:, 0], isochrones_lukas[0][:, 1], 'b.') #, label='deterministic isochrones from Holzhausen et.al.')
     plt.plot(isochrones_lukas[1][:, 0], isochrones_lukas[1][:, 1], 'b.') #, label='deterministic isochrones')
 
-    legend = ['limit cycle']
+    # legend = ['limit cycle']
     # legend.extend(legend_str)
 
     plt.legend()
