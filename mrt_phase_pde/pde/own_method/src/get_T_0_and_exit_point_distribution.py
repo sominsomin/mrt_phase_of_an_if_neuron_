@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import math
 
 from mrt_phase_numeric.src.config import equation_config
 from mrt_phase_pde.pde.own_method.src.T_0.T_0 import T_0
@@ -18,7 +19,7 @@ dt = 0.01
 v_min = -1
 v_max = 1.0
 a_min = 0
-a_max = 10
+a_max = 20
 
 n_v = int((v_max - v_min)) * 20 + 1
 n_a = int((a_max - a_min)) * 20 + 1
@@ -32,7 +33,15 @@ a = np.linspace(a_min, a_max, n_a)
 v_thr = 1.0
 n_trajectories = 1
 
-n_thr_crossings = 1
+n_thr_crossings = 15
+
+
+def find_nearest(array, value):
+    idx = np.searchsorted(array, value, side="left")
+    if idx > 0 and (idx == len(array) or math.fabs(value - array[idx-1]) < math.fabs(value - array[idx])):
+        return idx-1
+    else:
+        return idx
 
 
 def update_until_line_cross(v, a):
@@ -56,7 +65,12 @@ def get_rt_a_distr(_v, _a):
         a_distr.append(a_[-1])
 
     a_distr = np.array(a_distr)
-    hist = plt.hist(a_distr, bins=a_bins, density=True)
+    # hist = plt.hist(a_distr, bins=a_bins, density=True)
+    hist = np.histogram(a_distr, bins=a_bins, density=True)
+
+    idx = find_nearest(a_bins, a_[-1])
+
+
     p = hist[0]
 
     mean_rt = np.mean(rt)
@@ -85,10 +99,10 @@ if __name__=='__main__':
     T, prob = _get()
 
     T_0_ = T_0(v, a, T)
-    T_0_.save(f'..\\..\\data\\T_0_D_{D}_sim_n_thr_{n_thr_crossings}.pickle')
+    T_0_.save(f'..\\data\\T_0_D_{D}_sim_n_thr_{n_thr_crossings}.pickle')
 
     exit_point_distribution = ExitPointDistribution(v, a, prob)
-    exit_point_distribution.save(f'..\\..\\data\\epd_sim_D_{D}.pickle')
+    exit_point_distribution.save(f'..\\data\\epd_sim_D_{D}.pickle')
 
     __x, __y = np.meshgrid(v, a)
 

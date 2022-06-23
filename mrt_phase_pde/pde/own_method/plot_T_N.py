@@ -30,7 +30,7 @@ if __name__ == '__main__':
     prob = ExitPointDistribution.load(f'data/epd_sim_D_{D}.pickle')
     # T_0 = T_0.load(f'data/T_0_D_{D}_sim.pickle')
     # T_N = T_N_class.load(f'result/T_N_15_D_{D}.pickle')
-    T_N = T_N_class.load(f'data/T_0_D_{D}_sim_n_thr_1.pickle')
+    T_N = T_N_class.load(f'data/T_0_D_{D}_sim_n_thr_15.pickle')
     # T_0 = T_0.load('data/T_0_D_0.25_sim_n_thr_1.pickle')
 
     __x, __y = np.meshgrid(T_N.v, T_N.a)
@@ -41,8 +41,8 @@ if __name__ == '__main__':
     plt.xlabel('v')
     plt.ylabel('a')
     plt.ylim([0, 4])
-    plt.title(
-        f'$T_{{{T_N.n_thr}}}(v,a)$, $D={D}$')
+    # plt.title(
+    #     f'$T_{{{T_N.n_thr}}}(v,a)$, $D={D}$')
         # f'\n $v_{{thr}}={v_th}$, $\\mu={mu}$, $\\tau_a={tau_a}$, $\\Delta_a={Delta_a}$')
 
     # plt.savefig(f'img\\T_N_{l + 1}_D_{D}.png')
@@ -50,7 +50,7 @@ if __name__ == '__main__':
     det_file_paths = '..\\..\\..\\mrt_phase_numeric\\data\\results\\isochrones\\from_timeseries_grid\\deterministic\\D_0.0'
     stochastic = f'..\\..\\..\\mrt_phase_numeric\\data\\results\\isochrones\\from_timeseries\\stochastic\\D_{D}'
 
-    # isochrones = load_isochrones(det_file_paths)
-    # isochrones = load_isochrones(stochastic)
+    isochrones = load_isochrones(det_file_paths)
+    isochrones = load_isochrones(stochastic)
     # plot_isochrones(isochrones, 'g--')
     plt.xlim([-1,1])

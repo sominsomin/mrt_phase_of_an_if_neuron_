@@ -20,7 +20,7 @@ v_th = equation_config['v_th']
 tau_a = equation_config['tau_a']
 delta_a = equation_config['delta_a']
 
-D = 1.0
+D = 0.25
 # D = 0.25
 
 det_file_paths = '../../data/results/isochrones/from_timeseries_grid/deterministic/D_0.0'
@@ -67,9 +67,9 @@ def load_isochrones(data_location):
 
 
 def plot_isochrones(isochrones_list):
-    exclude = ['phi_0.4']
+    # exclude = ['phi_0.4']
     # exclude = ['phi_0.6']
-    # exclude = []
+    exclude = []
 
     for key in isochrones_list.keys():
         if key in exclude:

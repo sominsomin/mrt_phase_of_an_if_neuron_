@@ -20,10 +20,10 @@ D = .0
 v_min = -1
 v_max = 1
 a_min = 0
-a_max = 4
+a_max = 3
 
 n_v = int(v_max - v_min) * 20 + 1
-n_a = int(a_max - a_min) * 10 + 1
+n_a = int(a_max - a_min) * 20 + 1
 
 v = np.linspace(v_min, v_max, n_v)
 a = np.linspace(a_min, a_max, n_a)
@@ -47,6 +47,9 @@ if __name__ == '__main__':
     T_0 = T_0.load(f'data/T_0_D_{D}_sim_n_thr_1.pickle')
     # T_0 = T_0.load('data/T_0_D_0.25_sim_n_thr_1.pickle')
 
+    v = T_0.v
+    a = T_0.a
+
     idx_v_zero = np.where(prob.v == 0)[0][0]
 
     # T N minus 1
@@ -56,21 +59,21 @@ if __name__ == '__main__':
 
     a_max = np.max(T_0.a)
 
-    l_max = int(a_max) - 5 # 5
+    l_max = int(a_max) - 4 # 5
 
     for l in range(l_max):
         print(f'l: {l}')
         a_max -= 1
 
-        n_a = int(a_max - a_min) * 10 + 1
-        a = np.linspace(a_min, a_max, n_a)
+        n_a = int(a_max - a_min) * 20 + 1
+        a_new = np.linspace(a_min, a_max, n_a)
         idx_a = np.where((T_0.a <= Delta_a + a_max) & (T_0.a >= Delta_a))
         # a_bins = np.insert(a, len(a), a[-1] + np.diff(a)[0])
 
         # T_N at v = 0
-        T_N_0 = np.zeros(len(a))
+        T_N_0 = np.zeros(len(a_new))
 
-        for j, _a in enumerate(a):
+        for j, _a in enumerate(a_new):
             # pass
             # hist = plt.hist(prob[idx_v_zero][j][:, 0], bins=a_bins, density=True)
             p = prob[idx_v_zero][j][:len(idx_a[0])]
@@ -78,7 +81,7 @@ if __name__ == '__main__':
             i_0 = np.where(T_0.v == 0)[0][0]
             j_0 = np.where(T_0.a == _a)[0][0]
 
-            T_N_0[j] = T_0[i_0, j_0] + np.sum(p * T_N_1[idx_a]) * np.diff(a)[0]
+            T_N_0[j] = T_0[i_0, j_0] + np.sum(p * T_N_1[idx_a]) * np.diff(a_new)[0]
 
         T_N_1 = copy.copy(T_N_0)
         T_N_all.append(T_N_0)
@@ -89,7 +92,7 @@ if __name__ == '__main__':
         if i == 0:
             continue
         diff = T - T_N_all[i - 1][:len(T)]
-        plt.plot(np.linspace(a_min, np.max(T_0.a), int(np.max(T_0.a) - a_min) * 10 + 1)[:len(T)], diff)
+        plt.plot(np.linspace(a_min, np.max(T_0.a), int(np.max(T_0.a) - a_min) * 20 + 1)[:len(T)], diff)
 
     plt.title(f'$(T_N(0, a) - T_{{N-1}}(0, a))$ for various $N$, $D={D}$')
     plt.xlabel('a')
@@ -98,36 +101,36 @@ if __name__ == '__main__':
     plt.savefig(f'img\\difference_in_T_N_at_0_D_{D}.png')
 
     a_max -= 1
-    n_a = int(a_max - a_min) * 10 + 1
-    a = np.linspace(a_min, a_max, n_a)
+    n_a = int(a_max - a_min) * 20 + 1
+    a_new = np.linspace(a_min, a_max, n_a)
     idx_a = np.where((T_0.a <= Delta_a + a_max) & (T_0.a >= Delta_a))
-    a_bins = np.insert(a, len(a), a[-1] + np.diff(a)[0])
+    a_bins = np.insert(a_new, len(a_new), a_new[-1] + np.diff(a_new)[0])
 
-    T_N = np.zeros((len(v), len(a)))
+    T_N = np.zeros((len(v), len(a_new)))
 
     for i, _v in enumerate(v):
-        for j, _a in enumerate(a):
+        for j, _a in enumerate(a_new):
             # pass
             p = prob[i][j][:len(idx_a[0])]
 
             i_0 = np.where(_v == T_0.v)[0][0]
             j_0 = np.where(_a == T_0.a)[0][0]
 
-            T_add = np.sum(p * T_N_1[idx_a]) * np.diff(a)[0]
+            T_add = np.sum(p * T_N_1[idx_a]) * np.diff(a_new)[0]
             T_N[i, j] = T_0[i_0, j_0] + T_add
 
-    t_n = T_N_class(v, a, T_N, l + 1)
+    t_n = T_N_class(v, a_new, T_N, l + 1)
     # l + 1
     t_n.save(f'result\\T_N_{l + 1}_D_{D}.pickle')
 
-    __x, __y = np.meshgrid(v, a)
+    __x, __y = np.meshgrid(v, a_new)
 
     plt.figure()
     plt.contourf(__x, __y, T_N.transpose(), levels=30)  # , v_min=-30, v_max=30)
     plt.colorbar()
     plt.xlabel('v')
     plt.ylabel('a')
-    plt.ylim([0, 4])
+    plt.ylim([0, a_max])
     plt.title(
         f'$T_{{{l + 1}}}(v,a)$, $D={D}$')
         # f'\n $v_{{thr}}={v_th}$, $\\mu={mu}$, $\\tau_a={tau_a}$, $\\Delta_a={Delta_a}$')
