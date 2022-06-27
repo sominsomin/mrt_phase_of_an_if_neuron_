@@ -21,7 +21,8 @@ for i in n:
     t_1 = T_N.load(T_1)
     t_2 = T_0.load(T_2)
 
-    max_n_a = 31
+    max_a = 3
+    max_n_a = np.where(t_1.a == max_a)[0][0] + 1
 
     diff = t_1.T[:, :max_n_a] - t_2.T[:, :max_n_a]
 

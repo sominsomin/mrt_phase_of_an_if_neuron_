@@ -18,8 +18,8 @@ if __name__ == '__main__':
     prob = ExitPointDistribution.load(f'data/epd_sim_D_{D}.pickle')
     # T_0 = T_0.load(f'data/T_0_D_{D}_sim.pickle')
     # T_N = T_N_class.load(f'result/T_N_15_D_{D}.pickle')
-    T_N = T_N_class.load(f'data/T_0_D_{D}_sim_n_thr_15.pickle')
-    # T_0 = T_0.load('data/T_0_D_0.25_sim_n_thr_1.pickle')
+    T_N = T_N_class.load(f'data/T_0_D_{D}_sim_n_thr_1.pickle')
+    # T_N = T_N_class.load(f'result/T_N_0_D_{D}.pickle')
 
     __x, __y = np.meshgrid(T_N.v, T_N.a)
 

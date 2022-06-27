@@ -17,7 +17,7 @@ from mrt_phase_numeric.src.config import equation_config
 limit_cycle_file_path = filepaths['limit_cycle_path']
 limit_cycle = read_curve_from_file(limit_cycle_file_path)
 
-D = .5
+D = .25
 
 
 def find_nearest(array, value):
@@ -28,10 +28,20 @@ def find_nearest(array, value):
         return idx
 
 
+def get_curve_from_cs(cs):
+    all_curves = []
+    for collection in cs.collections:
+        p = collection.get_paths()[0]
+        curve = p.vertices
+        all_curves.append(curve)
+
+    return all_curves
+
+
 if __name__ == '__main__':
     # T_N = T_N_class.load(f'data/T_0_D_{D}_sim_n_thr_15.pickle')
 
-    T_N = T_N_class.load(f'result/T_N_15_D_{D}.pickle')
+    T_N = T_N_class.load(f'result/T_N_6_D_{D}.pickle')
 
     phi_ = np.linspace(0.0, 1, 11)
     levels = []
@@ -47,7 +57,7 @@ if __name__ == '__main__':
     __x, __y = np.meshgrid(T_N.v, T_N.a)
 
     plt.figure()
-    plt.contour(__x, __y, T_N.T.transpose(), levels=np.sort(levels)[1:])  # , v_min=-30, v_max=30)
+    cs = plt.contour(__x, __y, T_N.T.transpose(), levels=np.sort(levels)[1:])  # , v_min=-30, v_max=30)
     plt.colorbar()
     plt.xlabel('v')
     plt.ylabel('a')
@@ -55,6 +65,7 @@ if __name__ == '__main__':
 
     plt.plot(limit_cycle[:, 0], limit_cycle[:, 1], 'g.')
 
+    all_curves = get_curve_from_cs(cs)
 
     det_file_paths = '..\\..\\..\\mrt_phase_numeric\\data\\results\\isochrones\\from_timeseries_grid\\deterministic\\D_0.0'
     stochastic = f'..\\..\\..\\mrt_phase_numeric\\data\\results\\isochrones\\from_timeseries\\stochastic\\D_{D}'

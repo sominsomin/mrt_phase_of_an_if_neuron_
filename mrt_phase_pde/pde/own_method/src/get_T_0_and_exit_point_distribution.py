@@ -13,13 +13,13 @@ v_th = equation_config['v_th']
 tau_a = equation_config['tau_a']
 Delta_a = equation_config['delta_a']
 
-D = .0
+D = 1.0
 dt = 0.01
 
 v_min = -1
 v_max = 1.0
 a_min = 0
-a_max = 20
+a_max = 10
 
 n_v = int((v_max - v_min)) * 20 + 1
 n_a = int((a_max - a_min)) * 20 + 1
@@ -31,7 +31,7 @@ v = np.linspace(v_min, v_max, n_v)
 a = np.linspace(a_min, a_max, n_a)
 
 v_thr = 1.0
-n_trajectories = 1
+n_trajectories = 3000
 
 n_thr_crossings = 1
 
@@ -50,6 +50,29 @@ def update_until_line_cross(v, a):
     return v_, a_
 
 
+def custom_hist(value, a):
+    """used for n trajectories == 1, to linearly interpolate bins"""
+    hist = np.zeros(len(a))
+
+    if value in a:
+        idx_exact = np.where(value == a)[0][0]
+        hist[idx_exact] = 1
+    else:
+        idx_left = np.searchsorted(a, value, side="left") - 1
+        idx_right = idx_left + 1
+        value_left = a[idx_left]
+        value_right = a[idx_right]
+
+        diff = value_right - value_left
+        weight_left = (value - value_left)/diff
+        weight_right = (value_right - value)/diff
+
+        hist[idx_left] = weight_left
+        hist[idx_right] = weight_right
+
+    return hist * 1/np.diff(a)[0]
+
+
 def get_rt_a_distr(_v, _a):
     rt = []
     a_distr = []
@@ -66,11 +89,14 @@ def get_rt_a_distr(_v, _a):
 
     a_distr = np.array(a_distr)
     # hist = plt.hist(a_distr, bins=a_bins, density=True)
+    # if n_trajectories == 1:
+    #     hist = custom_hist(a_distr[0], a)
+    #     p = hist
+    # else:
     hist = np.histogram(a_distr, bins=a_bins, density=True)
+    p = hist[0]
 
     idx = find_nearest(a_bins, a_[-1])
-
-    p = hist[0]
 
     mean_rt = np.mean(rt)
 
