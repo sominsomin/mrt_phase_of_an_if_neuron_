@@ -8,22 +8,10 @@ from mrt_phase_numeric.src.config import equation_config
 from mrt_phase_pde.pde.own_method.src.exit_point_distribution.exit_point_distribution import ExitPointDistribution
 from mrt_phase_pde.pde.own_method.src.T_0.T_0 import T_0
 from mrt_phase_pde.pde.own_method.src.T_0.T_N import T_N as T_N_class
-from mrt_phase_numeric.isochrones.plot_isochrones.plot_util import load_isochrones
+from mrt_phase_numeric.isochrones.plot_isochrones.plot_util import load_isochrones, plot_isochrones
 
 
 D = 0.0
-
-
-def plot_isochrones(isochrones_list, draw=None):
-    legend_str = []
-    for key in isochrones_list.keys():
-        curves = isochrones_list[key]
-        for i, curve in enumerate(curves):
-            if curve.points.any():
-                if draw:
-                    plt.plot(curve[:, 0], curve[:, 1], draw)
-                else:
-                    plt.plot(curve[:, 0], curve[:, 1])
 
 
 if __name__ == '__main__':
@@ -51,6 +39,6 @@ if __name__ == '__main__':
     stochastic = f'..\\..\\..\\mrt_phase_numeric\\data\\results\\isochrones\\from_timeseries\\stochastic\\D_{D}'
 
     isochrones = load_isochrones(det_file_paths)
-    isochrones = load_isochrones(stochastic)
-    # plot_isochrones(isochrones, 'g--')
+    # isochrones = load_isochrones(stochastic)
+    plot_isochrones(isochrones, plt, 'g--')
     plt.xlim([-1,1])

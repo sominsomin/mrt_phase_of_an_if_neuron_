@@ -6,19 +6,19 @@ from mrt_phase_pde.pde.own_method.src.T_0.T_N import T_N
 
 D = 0.25
 
-n_1 = 15
+n_1 = 16
 n_2 = 15
 
 # T sim vs T pde 2 difference
-T_1 = f'result\\T_N_{n_1}_D_0.0.pickle'
+T_1 = f'result\\T_N_{n_1}_D_{D}.pickle'
 # T_1 = f'data\\T_0_D_{D}.pickle'
 # T_2 = f'data\\T_0_D_{D}_sim_n_thr_10.pickle'
-T_2 = f'result\\T_N_{n_2}_D_1.0.pickle'
+T_2 = f'result\\T_N_{n_2}_D_{D}.pickle'
 
 t_1 = T_N.load(T_1)
 t_2 = T_0.load(T_2)
 
-max_n_a = 41
+max_n_a = 31
 
 diff = t_2.T[:, :max_n_a] - t_1.T[:, :max_n_a]
 

@@ -13,7 +13,7 @@ v_th = equation_config['v_th']
 tau_a = equation_config['tau_a']
 Delta_a = equation_config['delta_a']
 
-D = 0.0
+D = .0
 dt = 0.01
 
 v_min = -1
@@ -33,7 +33,7 @@ a = np.linspace(a_min, a_max, n_a)
 v_thr = 1.0
 n_trajectories = 1
 
-n_thr_crossings = 15
+n_thr_crossings = 1
 
 
 def find_nearest(array, value):
@@ -70,7 +70,6 @@ def get_rt_a_distr(_v, _a):
 
     idx = find_nearest(a_bins, a_[-1])
 
-
     p = hist[0]
 
     mean_rt = np.mean(rt)
@@ -95,7 +94,6 @@ def _get():
 
 
 if __name__=='__main__':
-
     T, prob = _get()
 
     T_0_ = T_0(v, a, T)

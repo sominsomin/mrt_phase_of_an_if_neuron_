@@ -49,3 +49,14 @@ def read_dat(filename):
             data.append(line)
 
     return np.array(data)
+
+
+def plot_isochrones(isochrones_list, plt, draw=None):
+    for key in isochrones_list.keys():
+        curves = isochrones_list[key]
+        for i, curve in enumerate(curves):
+            if curve.points.any():
+                if draw:
+                    plt.plot(curve[:, 0], curve[:, 1], draw)
+                else:
+                    plt.plot(curve[:, 0], curve[:, 1])

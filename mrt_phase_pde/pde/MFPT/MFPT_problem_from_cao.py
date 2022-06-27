@@ -8,16 +8,15 @@ v_th = equation_config['v_th']
 tau_a = equation_config['tau_a']
 Delta_a = equation_config['delta_a']
 
-T_bar = 2.0
-D = 0.25
+D = 0.0
 
 x_min = -1
 x_max = 1
 y_min = 0
 y_max = 10
 
-n_x = int(x_max - x_min) * 10 + 1
-n_y = int(y_max - y_min) * 10 + 1
+n_x = int(x_max - x_min) * 20 + 1
+n_y = int(y_max - y_min) * 20 + 1
 
 x = np.linspace(x_min, x_max, n_x)
 y = np.linspace(y_min, y_max, n_y)
@@ -128,9 +127,6 @@ def get_A_b():
     L_dagger = np.array(L_dagger)
 
     return L_dagger, b
-
-# b[jump] = -1 + T_bar * (f(x_all[jump], y_all[jump])/(2*h) + D/h**2)
-# b[right_jump] = -1 + T_bar * (f(x_all[right_jump],y_all[right_jump])/(2*h) - D/h**2)
 
 
 def T_to_T_matrix(T):
