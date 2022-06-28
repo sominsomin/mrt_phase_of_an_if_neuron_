@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-from mrt_phase_numeric.src.config import equation_config
+from config import equation_config
 from mrt_phase_pde.pde.own_method.src.T_0.T_0 import T_0
 
 mu = equation_config['mu']
@@ -15,7 +15,7 @@ D = 0.25
 x_min = -1
 x_max = 1
 y_min = 0
-y_max = 20
+y_max = 10
 
 n_x = int(x_max - x_min) * 10 + 1
 n_y = int(y_max - y_min) * 10 + 1
@@ -106,9 +106,10 @@ def get_A_b():
             row[idx_up] += g(x_, y_) * 1 / (2 * h)
             row[idx_down] -= g(x_, y_) * 1 / (2 * h)
 
-            row[idx_right] += D / h ** 2
-            row[i] -= 2 * D / h ** 2
-            row[idx_left] += D / h ** 2
+            fact = 1
+            row[idx_right] += D / h ** 2 * fact
+            row[i] -= 2 * D / h ** 2 * fact
+            row[idx_left] += D / h ** 2 * fact
 
         L_dagger.append(row)
 

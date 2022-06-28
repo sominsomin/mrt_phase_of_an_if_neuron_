@@ -1,4 +1,4 @@
-from mrt_phase_numeric.src.config import equation_config
+from config import equation_config
 from mrt_phase_numeric.src.Isochrone.InitHelper import (InitTypes)
 from mrt_phase_numeric.src.Isochrone.Isochrone import (
     DataTypes)

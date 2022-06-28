@@ -3,19 +3,22 @@ import copy
 import numpy as np
 import matplotlib.pyplot as plt
 
-from mrt_phase_numeric.src.update_equ.update import integrate_forwards
-from mrt_phase_numeric.src.config import equation_config
+from config import equation_config
 from mrt_phase_pde.pde.own_method.src.exit_point_distribution.exit_point_distribution import ExitPointDistribution
 from mrt_phase_pde.pde.own_method.src.T_0.T_0 import T_0 as T_0_class
 from mrt_phase_pde.pde.own_method.src.T_0.T_N import T_N as T_N_class
-from mrt_phase_numeric.isochrones.plot_isochrones.plot_util import load_isochrones, plot_isochrones
+from mrt_phase_numeric.src.DataTypes.DataTypes import filepaths
+from mrt_phase_numeric.src.util.save_util import read_curve_from_file
+
+limit_cycle_file_path = filepaths['limit_cycle_path']
+limit_cycle = read_curve_from_file(limit_cycle_file_path)
 
 mu = equation_config['mu']
 v_th = equation_config['v_th']
 tau_a = equation_config['tau_a']
 Delta_a = equation_config['delta_a']
 
-D = 0.0
+D = 1.
 
 v_min = -1
 v_max = 1
@@ -24,15 +27,15 @@ a_max = 3
 
 
 def get_T_N(l_max=None, D=D):
-    prob = ExitPointDistribution.load(f'data/epd_sim_D_{D}.pickle')
+    prob = ExitPointDistribution.load(f'..\\data\\epd_sim_D_{D}.pickle')
     # T_0 = T_0.load(f'data/T_0_D_{D}_sim.pickle')
-    T_0 = T_0_class.load(f'data/T_0_D_{D}_sim_n_thr_1.pickle')
+    T_0 = T_0_class.load(f'..\\data\\T_0_D_{D}_sim_n_thr_1.pickle')
     # T_0 = T_0.load('data/T_0_D_0.25_sim_n_thr_1.pickle')
 
     # just for saving T_0 as T_N, hackish
     if l_max == 0:
         t_n = T_N_class(T_0.v, T_0.a, T_0, 0)
-        t_n.save(f'result\\T_N_{0}_D_{D}.pickle')
+        t_n.save(f'..\\result\\T_N_{0}_D_{D}.pickle')
         T_N = T_0.T
         v = T_0.v
         a_new = T_0.a
@@ -58,7 +61,7 @@ def get_T_N(l_max=None, D=D):
 
         for l in range(l_max-1):
             print(f'l: {l}')
-            a_max -= 1
+            a_max -= Delta_a
 
             a_new = a_new[:np.where(a_new == a_max)[0][0] + 1]
             idx_a = np.where((T_0.a <= Delta_a + a_max) & (T_0.a >= Delta_a))
@@ -77,7 +80,7 @@ def get_T_N(l_max=None, D=D):
             T_N_1 = copy.copy(T_N_0)
             T_N_all.append(T_N_0)
 
-        a_max -= 1
+        a_max -= Delta_a
         a_new = a_new[:np.where(a_new == a_max)[0][0] + 1]
         idx_a = np.where((T_0.a <= Delta_a + a_max) & (T_0.a >= Delta_a))
 
@@ -94,7 +97,7 @@ def get_T_N(l_max=None, D=D):
                 T_N[i, j] = T_0[i_0, j_0] + T_add
 
         t_n = T_N_class(v, a_new, T_N, l_max)
-        t_n.save(f'result\\T_N_{l_max}_D_{D}.pickle')
+        t_n.save(f'..\\result\\T_N_{l_max}_D_{D}.pickle')
 
         # plot diff
         plt.figure()
@@ -108,7 +111,7 @@ def get_T_N(l_max=None, D=D):
         plt.xlabel('a')
         plt.ylabel('$\Delta t$')
         plt.legend([f'$T_{{{i + 1}}}(0, a) - T_{{{i}}}(0, a)$' for i in range(len(T_N_all))])
-        plt.savefig(f'img\\difference_in_T_N_at_0_D_{D}.png')
+        plt.savefig(f'..\\img\\difference_in_T_N_at_0_D_{D}.png')
 
     # resize T_N for plot
     a_max_plot = 3
@@ -129,9 +132,12 @@ def get_T_N(l_max=None, D=D):
         # f'\n $v_{{thr}}={v_th}$, $\\mu={mu}$, $\\tau_a={tau_a}$, $\\Delta_a={Delta_a}$')
     # plt.ylim([0, 3])
     plt.colorbar()
-    plt.savefig(f'img\\T_N_{l_max}_D_{D}.png')
+    plt.plot(limit_cycle[:, 0], limit_cycle[:, 1], 'g.', label='deterministic limit cycle')
+    plt.legend()
 
-    det_file_paths = '..\\..\\..\\mrt_phase_numeric\\data\\results\\isochrones\\from_timeseries_grid\\deterministic\\D_0.0'
+    plt.savefig(f'..\\img\\T_N_{l_max}_D_{D}.png')
+
+    det_file_paths = '../../../../mrt_phase_numeric/data/results/isochrones/from_timeseries_grid/deterministic/D_0.0'
     stochastic = f'..\\..\\..\\mrt_phase_numeric\\data\\results\\isochrones\\from_timeseries\\stochastic\\D_{D}'
 
     # isochrones = load_isochrones(det_file_paths)
@@ -139,7 +145,9 @@ def get_T_N(l_max=None, D=D):
     # plot_isochrones(isochrones, plt, 'g--')
     plt.xlim([-1,1])
 
+    plt.show()
+
 
 if __name__ == '__main__':
-    get_T_N(3)
+    get_T_N(6)
 

@@ -2,12 +2,10 @@ import numpy as np
 # import scipy.linalg
 # from scipy.linalg import lu
 import matplotlib.pyplot as plt
-import pickle
 
-from mrt_phase_numeric.src.config import equation_config
 from mrt_phase_numeric.src.DataTypes.DataTypes import filepaths
 from mrt_phase_numeric.src.util.save_util import read_curve_from_file
-from mrt_phase_numeric.src.config import equation_config
+from config import equation_config
 
 limit_cycle_file_path = filepaths['limit_cycle_path']
 limit_cycle = read_curve_from_file(limit_cycle_file_path)

@@ -1,9 +1,9 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-from mrt_phase_numeric.src.config import equation_config
+from config import equation_config
 from mrt_phase_pde.pde.own_method.src.T_0.T_0 import T_0
-from mrt_phase_numeric.src.update_equ.update import update_, integrate_forwards
+from mrt_phase_numeric.src.update_equ.update import integrate_forwards
 
 mu = equation_config['mu']
 v_th = equation_config['v_th']

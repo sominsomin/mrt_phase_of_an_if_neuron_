@@ -1,6 +1,6 @@
 import os
 
-from mrt_phase_numeric.src.config import equation_config
+from config import equation_config
 from mrt_phase_numeric.src.DataTypes.DataTypes import (
     DataTypes, InitTypes)
 

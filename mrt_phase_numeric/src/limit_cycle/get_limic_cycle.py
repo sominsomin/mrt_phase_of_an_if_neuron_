@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-from mrt_phase_numeric.src.config import equation_config
+from config import equation_config
 from mrt_phase_numeric.src.update_equ.update import integrate_forwards
 
 D = 0.0

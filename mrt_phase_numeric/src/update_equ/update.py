@@ -1,7 +1,7 @@
 import random
 import numpy as np
 
-from mrt_phase_numeric.src.config import equation_config
+from config import equation_config
 
 mu = equation_config['mu']
 v_th = equation_config['v_th']

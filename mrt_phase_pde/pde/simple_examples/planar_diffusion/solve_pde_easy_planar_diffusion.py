@@ -2,9 +2,8 @@ import numpy as np
 # import scipy.linalg
 # from scipy.linalg import lu
 import matplotlib.pyplot as plt
-import pickle
 
-from mrt_phase_numeric.src.config import equation_config
+from config import equation_config
 
 # from scipy.optimize import lsq_linear
 

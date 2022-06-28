@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-from mrt_phase_numeric.src.config import equation_config
+from config import equation_config
 from mrt_phase_numeric.src.util.save_util import read_curve_from_file
 from mrt_phase_numeric.src.DataTypes.DataTypes import filepaths
 from mrt_phase_numeric.src.Isochrone.Isochrone import IsochroneMultipleBranchesBaseClass

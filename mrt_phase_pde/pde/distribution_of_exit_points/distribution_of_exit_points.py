@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-from mrt_phase_numeric.src.config import equation_config
+from config import equation_config
 from mrt_phase_pde.pde.distribution_of_exit_points.settings import x_min, x_max, y_min, y_max, n_x, n_y, D, x, y
 
 mu = equation_config['mu']
@@ -163,3 +163,4 @@ if __name__=='__main__':
         plt.scatter(x_all[bound], y_all[bound])
     plt.xlabel('x')
     plt.ylabel('y')
+    plt.show()

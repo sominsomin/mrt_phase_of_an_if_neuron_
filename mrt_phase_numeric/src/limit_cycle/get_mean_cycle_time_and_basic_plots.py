@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-from mrt_phase_numeric.src.config import equation_config
+from config import equation_config
 from mrt_phase_numeric.src.update_equ.update import update_
 from mrt_phase_numeric.src.util.get_ISI import get_ISI
 from mrt_phase_numeric.src.util.save_util import read_curve_from_file

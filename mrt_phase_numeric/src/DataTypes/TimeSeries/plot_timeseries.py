@@ -1,12 +1,8 @@
 import os
 import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib import ticker, cm
-from matplotlib.ticker import LogFormatter
 import pickle
 
-from mrt_phase_numeric.src.update_equ.update import integrate_forwards
-from mrt_phase_numeric.src.config import equation_config
 from mrt_phase_numeric.src.DataTypes.TimeSeries.TimeSeries import TimeSeries
 from mrt_phase_numeric.src.DataTypes.DataTypes import filepaths, DataTypes
 from mrt_phase_numeric.src.Isochrone.Isochrone import IsochroneTimeSeries
