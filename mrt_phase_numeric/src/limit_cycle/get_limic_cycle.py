@@ -39,6 +39,6 @@ if __name__ == '__main__':
 
     plt.show()
 
-    with open('../../data/input/limit_cycle/limit_cycle_version_3.txt', 'w') as file:
+    with open('../../data/input/limit_cycle/limit_cycle.txt', 'w') as file:
         for line in limit_cycle:
             file.write(f'({line[0]},{line[1]})' + '\n')
