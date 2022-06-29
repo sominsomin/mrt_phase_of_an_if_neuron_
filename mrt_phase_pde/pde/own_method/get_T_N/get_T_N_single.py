@@ -18,7 +18,7 @@ v_th = equation_config['v_th']
 tau_a = equation_config['tau_a']
 Delta_a = equation_config['delta_a']
 
-D = 1.
+D = .1
 
 v_min = -1
 v_max = 1
@@ -145,7 +145,7 @@ def get_T_N(l_max=None, D=D):
     # plot_isochrones(isochrones, plt, 'g--')
     plt.xlim([-1,1])
 
-    plt.show()
+    # plt.show()
 
 
 if __name__ == '__main__':

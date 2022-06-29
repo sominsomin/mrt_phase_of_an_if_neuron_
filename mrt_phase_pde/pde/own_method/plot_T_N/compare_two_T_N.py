@@ -14,16 +14,17 @@ def find_nearest(array, value):
         return idx
 
 
-D = 0.25
+D = 0.0
 
 # n_1 = 6
 # n_2 = 6
 
 # T sim vs T pde 2 difference
 # T_1 = f'result\\T_N_{n_1}_D_{0.0}.pickle'
-T_1 = f'data\\T_0_D_{D}.pickle'
-T_2 = f'data\\T_0_D_{D}_sim_n_thr_1.pickle'
-# T_2 = f'result\\T_N_{n_2}_D_{0.25}.pickle'
+# T_1 = f'..\\data\\T_0_D_{D}.pickle'
+T_1 = f'..\\data\\T_6_D_{D}_sim_n_thr_7.pickle'
+# T_2 = f'..\\data\\T_0_D_{D}_sim_n_thr_1.pickle'
+T_2 = f'..\\result\\T_N_{6}_D_{0.0}.pickle'
 
 t_1 = T_N.load(T_1)
 t_2 = T_0.load(T_2)

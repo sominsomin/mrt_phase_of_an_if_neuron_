@@ -9,7 +9,7 @@ from mrt_phase_pde.pde.own_method.extract_curves_from_T_N.extract_curves import 
 limit_cycle_file_path = filepaths['limit_cycle_path']
 limit_cycle = read_curve_from_file(limit_cycle_file_path)
 
-D_list = [0.0, 0.25]
+D_list = [0.0, 0.1, 0.25]
 
 if __name__ == '__main__':
 

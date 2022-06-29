@@ -4,7 +4,7 @@ import numpy as np
 from mrt_phase_pde.pde.own_method.src.T_0.T_0 import T_0
 from mrt_phase_pde.pde.own_method.src.T_0.T_N import T_N
 
-D = .0
+D = .1
 
 n = list(range(1, 6))
 diff_mean = []
@@ -39,6 +39,6 @@ plt.title(f'$D = {D}$')
 plt.legend()
 
 plt.savefig(f'..\\img\\T_N_diff_over_N_D_{D}.png')
-plt.show()
+# plt.show()
 
 print(f'D = {D}: {diff_mean[-1]}')
