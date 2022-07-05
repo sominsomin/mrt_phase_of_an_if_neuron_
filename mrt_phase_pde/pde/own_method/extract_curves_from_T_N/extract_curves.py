@@ -1,6 +1,6 @@
 import numpy as np
 import math
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt_
 
 from mrt_phase_numeric.src.DataTypes.DataTypes import filepaths
 from mrt_phase_numeric.src.util.save_util import read_curve_from_file
@@ -66,7 +66,7 @@ def get_curve_for_T_N(T_N: T_N, D: float, type=None):
     levels = get_levels(T_N, D, type=type)
 
     __x, __y = np.meshgrid(T_N.v, T_N.a)
-    cs = plt.contour(__x, __y, T_N.T.transpose(), levels=np.sort(levels)[1:])  # , v_min=-30, v_max=30)
+    cs = plt_.contour(__x, __y, T_N.T.transpose(), levels=np.sort(levels)[1:])  # , v_min=-30, v_max=30)
     all_curves = get_curves_from_cs(cs)
 
     return all_curves

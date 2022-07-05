@@ -20,20 +20,9 @@ delta_a = equation_config['delta_a']
 limit_cycle_file_path = filepaths['limit_cycle_path']
 limit_cycle = read_curve_from_file(limit_cycle_file_path)
 
-D = 0.1
 
-
-def find_nearest(array, value):
-    idx = np.searchsorted(array, value, side="left")
-    if idx > 0 and (idx == len(array) or math.fabs(value - array[idx-1]) < math.fabs(value - array[idx])):
-        return idx-1
-    else:
-        return idx
-
-
-if __name__ == '__main__':
+def plot_T_N(D):
     # T_N = T_N_class.load(f'data/T_0_D_{D}_sim_n_thr_15.pickle')
-
     T_N = T_N_class.load(f'..\\result\\T_N_6_D_{D}.pickle')
 
     curves = get_curve_for_T_N(T_N, D)
@@ -60,7 +49,7 @@ if __name__ == '__main__':
     plt.legend()
 
     # plt.savefig(f'img\\isochrones_for_D_{D}_comparison_numeric_isochrones.png')
-    # plt.savefig(f'img\\isochrones_for_D_{D}.png')
+    plt.savefig(f'img\\isochrones_for_D_{D}.png')
 
     det_file_paths = '..\\..\\..\\..\\mrt_phase_numeric\\data\\results\\isochrones\\from_timeseries_grid\\deterministic\\D_0.0'
     stochastic = f'..\\..\\..\\..\\mrt_phase_numeric\\data\\results\\isochrones\\from_timeseries\\stochastic\\D_{D}'
@@ -78,3 +67,10 @@ if __name__ == '__main__':
     # plt.xlim([-1,1])
 
     plt.show()
+
+
+if __name__ == '__main__':
+    D_list = [0.0, 0.1, 0.25, 0.5, 1.0]
+
+    for D in D_list:
+        plot_T_N(D)
