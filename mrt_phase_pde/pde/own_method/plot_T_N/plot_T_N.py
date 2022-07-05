@@ -13,7 +13,7 @@ tau_a = equation_config['tau_a']
 Delta_a = equation_config['delta_a']
 
 D = 0.0
-N = 1
+N = 6
 
 
 if __name__ == '__main__':
@@ -41,15 +41,15 @@ if __name__ == '__main__':
     plt.ylabel('a')
     plt.ylim([0, a_max_plot])
     plt.title(
-        f'$T_{{{N}}}(v,a)$, $D={D}$')
+        f'$T_{{{N}}}(v,a)$ via simulation, $D={D}$')
         # f'\n $v_{{thr}}={v_th}$, $\\mu={mu}$, $\\tau_a={tau_a}$, $\\Delta_a={Delta_a}$')
 
-    # plt.savefig(f'img\\comparision_to_numerics_T_N_D_{D}.png')
+    plt.savefig(f'..\\img\\comparision_to_numerics_T_N_{N}_D_{D}_from_simulation.png')
 
     det_file_paths = '../../../../mrt_phase_numeric/data/results/isochrones/from_timeseries_grid/deterministic/D_0.0'
     stochastic = f'..\\..\\..\\mrt_phase_numeric\\data\\results\\isochrones\\from_timeseries\\stochastic\\D_{D}'
 
-    isochrones = load_isochrones(det_file_paths)
+    # isochrones = load_isochrones(det_file_paths)
     # isochrones = load_isochrones(stochastic)
     # plot_isochrones(isochrones, plt, 'g--')
     plt.xlim([-1,1])

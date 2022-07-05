@@ -57,6 +57,7 @@ def plot_isochrones(isochrones_list, plt, draw=None):
         for i, curve in enumerate(curves):
             if curve.points.any():
                 if draw:
-                    plt.plot(curve[:, 0], curve[:, 1], draw)
+                    # plt.plot(curve[:, 0], curve[:, 1], draw, label='numeric isochonres')
+                    plt.plot(curve[:, 0], curve[:, 1], draw, label='numeric isochrones')
                 else:
                     plt.plot(curve[:, 0], curve[:, 1])

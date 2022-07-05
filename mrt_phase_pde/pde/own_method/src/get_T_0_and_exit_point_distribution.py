@@ -21,8 +21,8 @@ v_max = 1.0
 a_min = 0
 a_max = 10
 
-n_v = int((v_max - v_min)) * 20 + 1
-n_a = int((a_max - a_min)) * 20 + 1
+n_v = int((v_max - v_min)) * 100 + 1
+n_a = int((a_max - a_min)) * 100 + 1
 
 # n_v = 20
 # n_a = 40
@@ -33,7 +33,7 @@ a = np.linspace(a_min, a_max, n_a)
 v_thr = 1.0
 n_trajectories = 1
 
-n_thr_crossings = 3
+n_thr_crossings = 1
 
 
 def find_nearest(array, value):
@@ -125,8 +125,8 @@ if __name__=='__main__':
     T_0_ = T_0(v, a, T)
     T_0_.save(f'..\\data\\T_{n_thr_crossings - 1}_D_{D}_sim_n_thr_{n_thr_crossings}.pickle')
 
-    # exit_point_distribution = ExitPointDistribution(v, a, prob)
-    # exit_point_distribution.save(f'..\\data\\epd_sim_D_{D}.pickle')
+    exit_point_distribution = ExitPointDistribution(v, a, prob)
+    exit_point_distribution.save(f'..\\data\\epd_sim_D_{D}.pickle')
 
     __x, __y = np.meshgrid(v, a)
 

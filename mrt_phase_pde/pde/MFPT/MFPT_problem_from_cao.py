@@ -80,12 +80,20 @@ def get_A_b():
 
             b[i] = 0
 
-        elif i in right[0]:
+        elif i in right[0] and y_ <= mu - v_th:
             idx_left = np.where((x_all == x[idx_x_low]) & (y_all == y_))
             # row[idx_left] = D / h ** 2
 
             # row[idx_left] = -1
             row[i] = 1
+
+            b[i] = 0
+
+        elif i in right[0] and y_ > mu - v_th:
+            idx_left = np.where((x_all == x[idx_x_low]) & (y_all == y_))
+
+            row[i] = -1
+            row[idx_left] = 1
 
             b[i] = 0
 

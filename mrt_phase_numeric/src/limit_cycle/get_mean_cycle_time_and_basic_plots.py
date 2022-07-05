@@ -110,10 +110,10 @@ def get_ISI_():
 
 
 if __name__ == '__main__':
-    plot_basic()
+    # plot_basic()
 
-    # ISI, mean_ISI, mean_cycle_time = get_ISI_()
-    #
-    # print('mean ISI: ', mean_ISI)
-    # print('mean_cycle_time: ', mean_cycle_time)
+    ISI, mean_ISI, mean_cycle_time = get_ISI_()
+
+    print('mean ISI: ', mean_ISI)
+    print('mean_cycle_time: ', mean_cycle_time)
 

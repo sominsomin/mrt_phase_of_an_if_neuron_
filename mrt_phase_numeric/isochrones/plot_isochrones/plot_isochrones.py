@@ -65,7 +65,7 @@ def load_isochrones(data_location):
 
 
 def plot_isochrones(isochrones_list):
-    # exclude = ['phi_0.4']
+      # exclude = ['phi_0.4']
     # exclude = ['phi_0.6']
     exclude = []
 
