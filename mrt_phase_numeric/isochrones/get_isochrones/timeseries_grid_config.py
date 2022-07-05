@@ -6,18 +6,18 @@ from mrt_phase_numeric.src.Isochrone.Isochrone import (
 D = 0.0
 mean_T = equation_config['mean_T_dict'][D]
 
-data_filename = f'..\\..\\data\\input\\timeseries_grid\\deterministic\\D_0.0\\data_D_0.0_dt_0.01_v_range_0.01_a_range_0.01.pkl'
+data_filename = f'..\\..\\data\\input\\timeseries_grid\\deterministic\\D_0.0\\data_D_0.0_dt_0.01_v_range_0.01_a_range_0.1.pkl'
 
 
 isochrone_config = {
     'D': D,
     'target_rt': mean_T,
-    'update_jump': 0.05,
+    'update_jump': 0.02,
     'early_stopping_n_updates': 3,
     'smooth_curve': False,
     'data_filename': data_filename,
     'v_min': -2,
-    'a_max': 3,
+    'a_max': 40,
 }
 
 init_config = {

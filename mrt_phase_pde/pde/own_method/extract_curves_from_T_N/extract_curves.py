@@ -22,7 +22,10 @@ def find_nearest(array, value):
 def get_curves_from_cs(cs):
     all_curves = []
     for collection in cs.collections:
-        p = collection.get_paths()[0]
+        try:
+            p = collection.get_paths()[0]
+        except:
+            print()
         curve = p.vertices
         all_curves.append(curve)
 
@@ -44,11 +47,14 @@ def get_levels(T_N: T_N, D: float, type=None):
             level = T_N[idx_v, idx_a]
             level_2 = level + T_bar[D]
             level_1 = level - T_bar[D]
+            level_0 = level - 2 * T_bar[D]
 
             levels.append(level)
             levels.append(level_2)
             if level_1 > np.min(T_N.T):
                 levels.append(level_1)
+            if level_0 > np.min(T_N.T):
+                levels.append(level_0)
 
         levels = np.sort(levels)
     else:

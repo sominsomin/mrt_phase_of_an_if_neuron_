@@ -13,16 +13,16 @@ v_th = equation_config['v_th']
 tau_a = equation_config['tau_a']
 Delta_a = equation_config['delta_a']
 
-D = 0.0
+D = 0.1
 dt = 0.01
 
 v_min = -1
 v_max = 1.0
 a_min = 0
-a_max = 10
+a_max = 90
 
-n_v = int((v_max - v_min)) * 100 + 1
-n_a = int((a_max - a_min)) * 100 + 1
+n_v = int((v_max - v_min)) * 10 + 1
+n_a = int((a_max - a_min)) * 2 + 1
 
 # n_v = 20
 # n_a = 40
@@ -31,7 +31,7 @@ v = np.linspace(v_min, v_max, n_v)
 a = np.linspace(a_min, a_max, n_a)
 
 v_thr = 1.0
-n_trajectories = 1
+n_trajectories = 3000
 
 n_thr_crossings = 1
 
@@ -123,7 +123,7 @@ if __name__=='__main__':
     T, prob = _get()
 
     T_0_ = T_0(v, a, T)
-    T_0_.save(f'..\\data\\T_{n_thr_crossings - 1}_D_{D}_sim_n_thr_{n_thr_crossings}.pickle')
+    T_0_.save(f'..\\data\\T_0_D_{D}_sim_n_thr_{n_thr_crossings}.pickle')
 
     exit_point_distribution = ExitPointDistribution(v, a, prob)
     exit_point_distribution.save(f'..\\data\\epd_sim_D_{D}.pickle')

@@ -11,7 +11,7 @@ v_th = equation_config['v_th']
 tau_a = equation_config['tau_a']
 delta_a = equation_config['delta_a']
 
-D = 1.0
+D = 0.0
 
 
 def plot_basic(dt=0.01):

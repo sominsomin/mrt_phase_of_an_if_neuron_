@@ -18,12 +18,12 @@ v_th = equation_config['v_th']
 tau_a = equation_config['tau_a']
 Delta_a = equation_config['delta_a']
 
-D = .1
+D = .0
 
 v_min = -1
 v_max = 1
 a_min = 0
-a_max = 3
+a_max = 30
 
 
 def get_T_N(l_max=None, D=D):
@@ -114,7 +114,7 @@ def get_T_N(l_max=None, D=D):
         plt.savefig(f'..\\img\\difference_in_T_N_at_0_D_{D}.png')
 
     # resize T_N for plot
-    a_max_plot = 3
+    a_max_plot = 30
 
     idx_max_a = np.where(a_new == a_max_plot)[0][0] + 1
     T_N = T_N[:, :idx_max_a]

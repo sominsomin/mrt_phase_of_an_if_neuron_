@@ -42,7 +42,7 @@ def plot_T_N(D):
 
     plt.xlabel('v')
     plt.ylabel('a')
-    plt.ylim([0, 3])
+    plt.ylim([0, 30])
     plt.xlim([-1, 1])
     plt.title(f'$D={D}$, $\mu={mu}$, $\\tau_a={tau_a}$, $\Delta_a={delta_a}$')
     plt.plot(limit_cycle[:, 0], limit_cycle[:, 1], 'g.', label='deterministic limit cycle')

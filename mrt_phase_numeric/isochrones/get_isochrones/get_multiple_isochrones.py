@@ -9,8 +9,8 @@ from mrt_phase_numeric.src.DataTypes.DataTypes import DataTypes
 # DEBUG_MODE = True
 DEBUG_MODE = False
 
-TYPE = DataTypes.TIMESERIES_TYPE
-# TYPE = DataTypes.TIMESERIES_GRID_TYPE
+# TYPE = DataTypes.TIMESERIES_TYPE
+TYPE = DataTypes.TIMESERIES_GRID_TYPE
 
 if TYPE == DataTypes.TIMESERIES_TYPE:
     from mrt_phase_numeric.isochrones.get_isochrones.timeseries_config import \
@@ -30,7 +30,7 @@ isochrone = None
 isochrone_init_helper = None
 error = 1
 
-phi_inits = [0.9] #, 0.7, 0.8, 0.9]
+phi_inits = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9] #, 0.7, 0.8, 0.9]
     #0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
 # phi_inits = [0.2]
 phi_init_index = 0
@@ -163,7 +163,7 @@ def setup_plot(limit_cycle, isochrone_config: dict):
     line = [line1, line1_x, line2, line2_x, line3, line4, line4_x, line5, line5_x, line6, line6_x, line7, line7_x, line8]
 
     v_min = isochrone_config['v_min']
-    a_max = 3
+    a_max = 40
     a_min = 0
 
     ax1.set_xlim([v_min, 1])
@@ -172,7 +172,7 @@ def setup_plot(limit_cycle, isochrone_config: dict):
     ax1.set_ylabel('a')
 
     ax2.set_xlim([v_min, 1])
-    ax2.set_ylim([0, 5])
+    ax2.set_ylim([0.5, 2])
     ax2.set_xlabel('v')
     ax2.set_ylabel('t')
 
