@@ -103,11 +103,24 @@ class IsochroneInitHelper:
 
     def init_isochrone(self, _phi):
         self._unpack_config()
-
         if self.init_type in [InitTypes.INIT_FROM_SCRATCH, InitTypes.INIT_FROM_LAST, InitTypes.INIT_FROM_DETERMINISTIC]:
             return self.init_new(_phi)
         elif self.init_type == InitTypes.INIT_FROM_OBJECT:
             return self.init_from_object(_phi)
+
+    def init_from_curve(self, curves):
+        curves_all = []
+        for i, curve in enumerate(curves):
+            _curve = Curve(curve, i)
+            curves_all.append(_curve)
+
+        cls = self.resolve_class()
+        isochrone = cls(curves_all, self.data, self.isochrone_config)
+
+        if self.multiple_branches:
+            isochrone.set_curves(curves_all)
+
+        return isochrone
 
     def init_from_object(self, _phi=None):
         if _phi:

@@ -3,11 +3,12 @@ import os
 from config import equation_config
 from mrt_phase_numeric.src.DataTypes.DataTypes import (
     DataTypes, InitTypes)
+from mrt_phase_numeric.definitions import ROOT_DIR
 
 D = 1.0
 mean_T = equation_config['mean_T_dict'][D]
 
-data_path = f'..\\..\\data\\input\\timeseries\\D_{D}'
+data_path = f'{ROOT_DIR}\\data\\input\\timeseries\\D_{D}'
 
 files = os.listdir(data_path)
 data_filename = os.path.join(data_path, files[0])

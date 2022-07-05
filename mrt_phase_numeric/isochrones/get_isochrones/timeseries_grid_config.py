@@ -2,11 +2,12 @@ from config import equation_config
 from mrt_phase_numeric.src.Isochrone.InitHelper import (InitTypes)
 from mrt_phase_numeric.src.Isochrone.Isochrone import (
     DataTypes)
+from mrt_phase_numeric.definitions import ROOT_DIR
 
 D = 0.0
 mean_T = equation_config['mean_T_dict'][D]
 
-data_filename = f'..\\..\\data\\input\\timeseries_grid\\deterministic\\D_0.0\\data_D_0.0_dt_0.01_v_range_0.01_a_range_0.01.pkl'
+data_filename = f'{ROOT_DIR}\\data\\input\\timeseries_grid\\deterministic\\D_0.0\\data_D_0.0_dt_0.01_v_range_0.01_a_range_0.01.pkl'
 
 
 isochrone_config = {

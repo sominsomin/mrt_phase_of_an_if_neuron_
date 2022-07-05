@@ -14,7 +14,7 @@ class Curve:
 
     def __init__(self, points: int, n_branch: int=None):
         self.points = np.array(points)
-        if n_branch:
+        if n_branch is not None:
             self.n_branch = n_branch
 
     @classmethod
