@@ -46,7 +46,8 @@ def get_levels(T_N: T_N, D: float, type=None):
             level_1 = level - T_bar[D]
 
             levels.append(level)
-            levels.append(level_2)
+            if level_2 < np.max(T_N.T):
+                levels.append(level_2)
             if level_1 > np.min(T_N.T):
                 levels.append(level_1)
 

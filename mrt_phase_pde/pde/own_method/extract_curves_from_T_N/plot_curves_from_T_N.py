@@ -9,7 +9,6 @@ from mrt_phase_numeric.src.util.save_util import read_curve_from_file
 from mrt_phase_pde.pde.own_method.extract_curves_from_T_N.extract_curves import get_curve_for_T_N
 from config import equation_config
 
-
 mu = equation_config['mu']
 v_th = equation_config['v_th']
 tau_a = equation_config['tau_a']
@@ -42,7 +41,7 @@ def plot_T_N(D):
     plt.ylabel('a')
     plt.ylim([0, 3])
     plt.xlim([-1, 1])
-    plt.title(f'$D={D}$, $\mu={mu}$, $\\tau_a={tau_a}$, $\Delta_a={delta_a}$')
+    plt.title(f'$D={D}$')  # , $\mu={mu}$, $\\tau_a={tau_a}$, $\Delta_a={delta_a}$')
     plt.plot(limit_cycle[:, 0], limit_cycle[:, 1], 'g.', label='deterministic limit cycle')
     plt.legend()
 
@@ -64,7 +63,7 @@ def plot_T_N(D):
     plt.legend(by_label.values(), by_label.keys())
     # plt.xlim([-1,1])
 
-    plt.show()
+    # plt.show()
 
 
 if __name__ == '__main__':

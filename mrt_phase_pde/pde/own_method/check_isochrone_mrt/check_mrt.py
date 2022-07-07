@@ -10,10 +10,15 @@ from mrt_phase_pde.pde.own_method.T_bar import T_bar
 from mrt_phase_numeric.src.Isochrone.InitHelper import IsochroneInitHelper
 from mrt_phase_numeric.isochrones.get_isochrones.timeseries_config import \
         isochrone_config, init_config
-from mrt_phase_numeric.src.Curve.Curve import Curve
+from config import equation_config
 
+mu = equation_config['mu']
+v_th = equation_config['v_th']
+tau_a = equation_config['tau_a']
+delta_a = equation_config['delta_a']
 
-D = 0.25
+# dont forget to set D in timeseries_config
+D = .5
 
 mu = equation_config['mu']
 v_th = equation_config['v_th']
@@ -47,7 +52,7 @@ if __name__ == '__main__':
     stepsize = 0.1
     levels = np.arange(min_T, max_T, mean_T * stepsize)
 
-    mid_idx = int(len(levels)/2)
+    mid_idx = int(len(levels)/2) + 3
 
     level_2 = levels[mid_idx] + mean_T
     level_1 = levels[mid_idx]
@@ -82,7 +87,7 @@ if __name__ == '__main__':
         ax2.plot(all_curves[i][:, 0], rt, colorscheme[i] + 'x')
 
     v_ = np.linspace(-2, 1, 100)
-    ax2.plot(v_, [T_bar[D] for v in v_], 'g--', label='target return time')
+    ax2.plot(v_, [T_bar[D] for v in v_], 'g--', label='$\\bar{T}$')
 
     ax1.set_xlim([-1, 1])
     ax1.set_ylim([0, 4])
@@ -92,10 +97,13 @@ if __name__ == '__main__':
     ax2.set_xlim([-1, 1])
     ax2.set_ylim([0, 3])
     ax2.set_xlabel('v')
-    ax2.set_ylabel('t')
+    ax2.set_ylabel('mean return time t')
 
-    plt.legend()
+    ax1.set_title(f'$D={D}$, $\mu={mu}$, $\\tau_a={tau_a}$, $\Delta_a={delta_a}$')
+
+    ax1.legend()
+    ax2.legend()
 
     fig.tight_layout()
 
-    plt.savefig(f'check_mrt_D_{D}.png')
+    plt.savefig(f'img\\check_mrt_D_{D}_{mid_idx}.png')

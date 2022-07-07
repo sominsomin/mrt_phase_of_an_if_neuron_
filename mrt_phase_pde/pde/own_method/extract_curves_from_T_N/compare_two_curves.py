@@ -39,12 +39,12 @@ def plot_multiple_curves(D_list):
     plt.xlabel('v')
     plt.ylabel('a')
     plt.ylim([0, 3])
-    plt.title(f'Isochrones for $\mu={mu}$, $\\tau_a={tau_a}$, $\Delta_a={delta_a}$')
+    # plt.title(f'Isochrones for $\mu={mu}$, $\\tau_a={tau_a}$, $\Delta_a={delta_a}$')
     # plt.title(f'$D={D}$, ')
     plt.legend()
     plt.savefig(f'img\\isochrones_comparison_D_{D_list}.png')
 
-    plt.show()
+    # plt.show()
 
 
 if __name__ == '__main__':
