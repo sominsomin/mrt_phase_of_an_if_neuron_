@@ -6,11 +6,11 @@ from mrt_phase_numeric.src.Isochrone.isochrone_util import get_isochrone
 from mrt_phase_numeric.src.Isochrone.InitHelper import IsochroneInitHelper
 from mrt_phase_numeric.src.DataTypes.DataTypes import DataTypes
 
-# DEBUG_MODE = True
-DEBUG_MODE = False
+DEBUG_MODE = True
+# DEBUG_MODE = False
 
-TYPE = DataTypes.TIMESERIES_TYPE
-# TYPE = DataTypes.TIMESERIES_GRID_TYPE
+# TYPE = DataTypes.TIMESERIES_TYPE
+TYPE = DataTypes.TIMESERIES_GRID_TYPE
 
 if TYPE == DataTypes.TIMESERIES_TYPE:
     from mrt_phase_numeric.isochrones.get_isochrones.timeseries_config import \
@@ -21,8 +21,8 @@ elif TYPE == DataTypes.TIMESERIES_GRID_TYPE:
 
 ############## simulation parameters ##############
 
-converge_tol = 0.02
-max_n_iterations = 20
+converge_tol = 0.001
+max_n_iterations = 200
 
 ########## init values
 
@@ -30,7 +30,7 @@ isochrone = None
 isochrone_init_helper = None
 error = 1
 
-phi_inits = [0.9] #, 0.7, 0.8, 0.9]
+phi_inits = [0.2, 0.3, 0.4, 0.5]
     #0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
 # phi_inits = [0.2]
 phi_init_index = 0
@@ -201,4 +201,5 @@ if __name__ == '__main__':
         for phi_init in phi_inits:
             print(phi_init)
             isochrone = isochrone_init_helper.init_isochrone(phi_init)
+            if DEBUG_MODE: isochrone.debug_mode = True
             get_isochrone(isochrone, phi=phi_init, _save=isochrone_init_helper.save_curves, _tol=converge_tol, max_n_iterations=max_n_iterations)

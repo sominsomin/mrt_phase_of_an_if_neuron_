@@ -133,6 +133,7 @@ class IsochroneInitHelper:
             if os.path.exists(object_path):
                 isochrone = IsochroneBaseClass.load(filename=object_path)
                 isochrone.config = self.isochrone_config
+                # isochrone._unpack_config()
 
                 # curves = self.adjust_curve(isochrone)
 

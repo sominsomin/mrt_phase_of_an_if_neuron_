@@ -205,6 +205,8 @@ class IsochroneBaseClass:
                 else:
                     _plot(self.curve)
                 plt.plot(point[0], point[1], 'x')
+                plt.xlabel('v')
+                plt.ylabel('a')
 
             rt = self.get_return_time_for_point(_curve, point)
             print(rt)
@@ -249,7 +251,7 @@ class IsochroneBaseClass:
                 if hasattr(_curve, 'reference_point_index'):
                     if _curve.reference_point_on_limit_cycle:
                         if i == _curve.reference_point_index:
-                            print('reference point skipped')
+                            print(f'reference point skipped: {point}')
                             continue
 
             t = _return_times_list[i]
@@ -456,7 +458,7 @@ class IsochroneMultipleBranchesBaseClass(IsochroneBaseClass):
             return None
 
         for n_thr_crossings, timeseries_slice in enumerate(timeseries_slices):
-            if self.debug_mode: _plot(timeseries_slice)
+            if self.debug_mode: _plot(timeseries_slice, 'b--')
 
             n_branch = self.get_possible_n_branch_for_crossing(_curve.n_branch, n_thr_crossings)
 
@@ -504,8 +506,8 @@ class IsochroneMultipleBranchesBaseClass(IsochroneBaseClass):
 
                 if self.debug_mode:
                     plt.plot(timeseries_slice[intersection[1], 0],
-                             timeseries_slice[intersection[1], 1], 'x')
-                    _plot(self.curves[n_branch])
+                             timeseries_slice[intersection[1], 1], 'ro')
+                    # _plot(self.curves[n_branch])
 
                 return intersection_indice
 
@@ -576,9 +578,12 @@ class IsochroneMultipleBranchesBaseClass(IsochroneBaseClass):
             self.curves[i], self.mean_return_time_pro_point[i] = curve.trim_curve(self.mean_return_time_pro_point[i])
 
 
-def _plot(data):
+def _plot(data, draw_style=None):
     if len(data) != 0:
-        plt.plot(data[:, 0], data[:, 1])
+        if draw_style is None:
+            plt.plot(data[:, 0], data[:, 1])
+        else:
+            plt.plot(data[:, 0], data[:, 1], draw_style)
 
 
 def _plot_(data):
@@ -633,7 +638,7 @@ class IsochroneTimeSeries(IsochroneSingleBranchBaseClass):
         if intersection_indice:
             if self.debug_mode and self.data_type == DataTypes.TIMESERIES_TYPE:
                 plt.plot(self.data[intersection_indice, 0],
-                         self.data[intersection_indice, 1], 'rx')
+                         self.data[intersection_indice, 1], 'ro')
             t = (intersection_indice - _indice) * self.dt
             return t
         else:
@@ -674,12 +679,12 @@ class IsochroneTimeSeriesGrid(IsochroneSingleBranchBaseClass):
         rt_list = []
 
         for trajectory in _trajectories:
-            if self.debug_mode: _plot(trajectory)
+            # if self.debug_mode: _plot(trajectory)
             intersection_indice = self.get_curve_intersection_indice(_curve=_curve, _start_indice=0,
                                                                      _data=trajectory, _data_type=self.data_type)
 
             if intersection_indice:
-                if self.debug_mode: plt.plot(trajectory[intersection_indice, 0], trajectory[intersection_indice, 1], 'x')
+                if self.debug_mode: plt.plot(trajectory[intersection_indice, 0], trajectory[intersection_indice, 1], 'bx')
                 intersection_indice = self.get_curve_intersection_indice(_curve=_curve, _start_indice=0,
                                                                          _data=trajectory,
                                                                          _data_type=self.data_type)

@@ -19,6 +19,7 @@ isochrone_config = {
     'data_filename': data_filename,
     'v_min': -2,
     'a_max': 3,
+    'skip_reference_points': True,
 }
 
 init_config = {
