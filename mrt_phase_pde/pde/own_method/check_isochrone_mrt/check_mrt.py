@@ -18,7 +18,7 @@ tau_a = equation_config['tau_a']
 delta_a = equation_config['delta_a']
 
 # dont forget to set D in timeseries_config
-D = .5
+D = 0.5
 
 mu = equation_config['mu']
 v_th = equation_config['v_th']
@@ -90,12 +90,12 @@ if __name__ == '__main__':
     ax2.plot(v_, [T_bar[D] for v in v_], 'g--', label='$\\bar{T}$')
 
     ax1.set_xlim([-1, 1])
-    ax1.set_ylim([0, 4])
+    ax1.set_ylim([0, 30])
     ax1.set_xlabel('v')
     ax1.set_ylabel('a')
 
     ax2.set_xlim([-1, 1])
-    ax2.set_ylim([0, 3])
+    ax2.set_ylim([0, 2])
     ax2.set_xlabel('v')
     ax2.set_ylabel('mean return time t')
 

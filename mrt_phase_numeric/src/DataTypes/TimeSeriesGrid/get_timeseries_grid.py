@@ -21,11 +21,11 @@ timeseries_grid_config = {
     'n_timeseries': 1,
     'n_cycles': 3,
     'v_range': 0.01,
-    'a_range': 0.01,
+    'a_range': 0.1,
     'v_min': -3,
     'v_max': 1,
     'a_min': 0,
-    'a_max': 5,
+    'a_max': 40,
 }
 
 n_timeseries = timeseries_grid_config['n_timeseries']
