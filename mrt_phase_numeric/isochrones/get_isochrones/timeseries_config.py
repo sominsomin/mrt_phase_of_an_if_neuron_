@@ -3,12 +3,12 @@ import os
 from config import equation_config
 from mrt_phase_numeric.src.DataTypes.DataTypes import (
     DataTypes, InitTypes)
+from mrt_phase_numeric.definitions import ROOT_DIR
 
-D = 1.0
+D = .5
 mean_T = equation_config['mean_T_dict'][D]
 
-data_path = f'..\\..\\data\\input\\timeseries\\D_{D}'
-
+data_path = f'{ROOT_DIR}\\data\\input\\timeseries\\D_{D}'
 files = os.listdir(data_path)
 data_filename = os.path.join(data_path, files[0])
 
@@ -18,7 +18,7 @@ isochrone_config = {
     'a_range': 0.015,
     'target_rt': mean_T,
     'update_jump': 0.2,
-    'max_n_trajectories': 5000,
+    'max_n_trajectories': 3000,
     'early_stopping_n_updates': 10,
     'smooth_curve': False,
     'data_filename': data_filename,

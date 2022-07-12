@@ -13,7 +13,7 @@ v_th = equation_config['v_th']
 tau_a = equation_config['tau_a']
 Delta_a = equation_config['delta_a']
 
-D = 0.1
+D = .0
 dt = 0.01
 
 v_min = -1
@@ -21,8 +21,8 @@ v_max = 1.0
 a_min = 0
 a_max = 90
 
-n_v = int((v_max - v_min)) * 10 + 1
-n_a = int((a_max - a_min)) * 2 + 1
+n_v = int((v_max - v_min)) * 20 + 1
+n_a = int((a_max - a_min)) * 10 + 1
 
 # n_v = 20
 # n_a = 40
@@ -31,7 +31,7 @@ v = np.linspace(v_min, v_max, n_v)
 a = np.linspace(a_min, a_max, n_a)
 
 v_thr = 1.0
-n_trajectories = 3000
+n_trajectories = 1
 
 n_thr_crossings = 1
 

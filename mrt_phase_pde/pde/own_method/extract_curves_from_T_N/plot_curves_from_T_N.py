@@ -1,6 +1,5 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import math
 from collections import OrderedDict
 from scipy.signal import savgol_filter
 
@@ -9,8 +8,6 @@ from mrt_phase_numeric.src.DataTypes.DataTypes import filepaths
 from mrt_phase_numeric.src.util.save_util import read_curve_from_file
 from mrt_phase_pde.pde.own_method.extract_curves_from_T_N.extract_curves import get_curve_for_T_N
 from config import equation_config
-from mrt_phase_numeric.isochrones.plot_isochrones.plot_util import load_isochrones, plot_isochrones
-
 
 mu = equation_config['mu']
 v_th = equation_config['v_th']
@@ -31,7 +28,7 @@ def plot_T_N(D):
 
     plt.figure()
     for i, curve in enumerate(curves):
-        step_size = int(len(curve) / 3)
+        step_size = int(len(curve) / 2)
         curve[:, 1] = savgol_filter(curve[:, 1], step_size, np.min([step_size, 5]) - 1)
         if i == 0:
             plt.plot(curve[:, 0], curve[:, 1], 'b-', label='isochrones')
@@ -44,7 +41,7 @@ def plot_T_N(D):
     plt.ylabel('a')
     plt.ylim([0, 30])
     plt.xlim([-1, 1])
-    plt.title(f'$D={D}$, $\mu={mu}$, $\\tau_a={tau_a}$, $\Delta_a={delta_a}$')
+    plt.title(f'$D={D}$')  # , $\mu={mu}$, $\\tau_a={tau_a}$, $\Delta_a={delta_a}$')
     plt.plot(limit_cycle[:, 0], limit_cycle[:, 1], 'g.', label='deterministic limit cycle')
     plt.legend()
 
@@ -66,11 +63,12 @@ def plot_T_N(D):
     plt.legend(by_label.values(), by_label.keys())
     # plt.xlim([-1,1])
 
-    plt.show()
+    # plt.show()
 
 
 if __name__ == '__main__':
-    D_list = [0.0, 0.1, 0.25, 0.5, 1.0]
+    D_list = [0.0, 0.1, 0.25, 0.5, 1.0, 5.0]
+    # D_list = [0.0]
 
     for D in D_list:
         plot_T_N(D)

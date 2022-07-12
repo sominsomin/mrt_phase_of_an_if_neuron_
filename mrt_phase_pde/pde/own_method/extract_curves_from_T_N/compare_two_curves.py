@@ -26,7 +26,7 @@ def plot_multiple_curves(D_list):
         T_N_curves = get_curve_for_T_N(T_N, D )#, type='deterministic')
 
         for i, curve in enumerate(T_N_curves):
-            step_size = int(len(curve) / 3)
+            step_size = int(len(curve) / 1)
             curve[:, 1] = savgol_filter(curve[:, 1], step_size, np.min([step_size, 5]) - 1)
 
             if i == 0:
@@ -38,16 +38,16 @@ def plot_multiple_curves(D_list):
 
     plt.xlabel('v')
     plt.ylabel('a')
-    plt.ylim([0, 3])
-    plt.title(f'Isochrones for $\mu={mu}$, $\\tau_a={tau_a}$, $\Delta_a={delta_a}$')
+    plt.ylim([0, 30])
+    # plt.title(f'Isochrones for $\mu={mu}$, $\\tau_a={tau_a}$, $\Delta_a={delta_a}$')
     # plt.title(f'$D={D}$, ')
     plt.legend()
     plt.savefig(f'img\\isochrones_comparison_D_{D_list}.png')
 
-    plt.show()
+    # plt.show()
 
 
 if __name__ == '__main__':
-    D_list_ = [[0.0, 0.1], [0.0, 0.25], [0.0, 0.5],  [0.0, 1.0], [0.1, 0.25], [0.5, 1.0], [0.25, 0.5]]
+    D_list_ = [[0.0, 0.1], [0.0, 0.25], [0.0, 0.5],  [0.0, 1.0], [0.0, 5.0], [0.1, 0.25], [0.5, 1.0], [0.25, 0.5]]
     for D_list in D_list_:
         plot_multiple_curves(D_list)

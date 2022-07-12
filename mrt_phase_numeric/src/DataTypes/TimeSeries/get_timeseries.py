@@ -9,7 +9,7 @@ from mrt_phase_numeric.src.DataTypes.DataTypes import filepaths, DataTypes
 
 folder_path = filepaths[DataTypes.TIMESERIES_TYPE][DataTypes.STOCHASTIC_TYPE]['data_path']
 
-D = 0.1
+D = .5
 dt = 0.01
 n_cycles = 200000
 
