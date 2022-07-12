@@ -30,7 +30,8 @@ isochrone = None
 isochrone_init_helper = None
 error = 1
 
-phi_inits = [0.2, 0.3, 0.4, 0.5]
+# phi_inits = [0.2, 0.3, 0.4, 0.5]
+phi_inits = [0.0]
     #0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
 # phi_inits = [0.2]
 phi_init_index = 0

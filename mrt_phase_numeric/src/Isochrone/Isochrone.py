@@ -13,8 +13,6 @@ from mrt_phase_numeric.src.DataTypes.timeseries_util import (
 from mrt_phase_numeric.src.line_intersection.line_intersection import (get_curve_intersection,
                                                                        get_curve_intersection_faster,
                                                                        get_curves_overlap)
-from mrt_phase_numeric.src.util.save_util import write_curve_to_file, write_t_list_to_file, \
-    write_data_to_file
 from mrt_phase_numeric.src.DataTypes.DataTypes import DataTypes
 from mrt_phase_numeric.src.Curve.Curve import Curve
 
@@ -201,12 +199,15 @@ class IsochroneBaseClass:
             if self.debug_mode:
                 plt.clf()
                 if hasattr(self, "curves"):
-                    _plot_(self.curves)
+                    color_scheme = ['r', 'b', 'm']
+                    for l, curve in enumerate(self.curves):
+                        _plot(curve, color_scheme[l], label=f'isochrone branch {l}')
                 else:
                     _plot(self.curve)
                 plt.plot(point[0], point[1], 'x')
                 plt.xlabel('v')
                 plt.ylabel('a')
+                plt.legend()
 
             rt = self.get_return_time_for_point(_curve, point)
             print(rt)
@@ -458,11 +459,11 @@ class IsochroneMultipleBranchesBaseClass(IsochroneBaseClass):
             return None
 
         for n_thr_crossings, timeseries_slice in enumerate(timeseries_slices):
-            if self.debug_mode: _plot(timeseries_slice, 'b--')
 
             n_branch = self.get_possible_n_branch_for_crossing(_curve.n_branch, n_thr_crossings)
 
             if n_branch is None:
+                if self.debug_mode: _plot(timeseries_slice, 'b--')
                 continue
             # skip if n_branch is higher than there are branches, can happen when trajectory walks around
             elif n_branch >= len(self.curves):
@@ -505,11 +506,14 @@ class IsochroneMultipleBranchesBaseClass(IsochroneBaseClass):
                     intersection_indice = intersection[1] + timeseries_len_previous_traj + _start_indice
 
                 if self.debug_mode:
+                    _plot(timeseries_slice[:intersection[1]], 'b--')
                     plt.plot(timeseries_slice[intersection[1], 0],
                              timeseries_slice[intersection[1], 1], 'ro')
                     # _plot(self.curves[n_branch])
 
                 return intersection_indice
+
+            if self.debug_mode: _plot(timeseries_slice, 'b--')
 
         print('couldnt find intersection')
         return None
@@ -578,12 +582,13 @@ class IsochroneMultipleBranchesBaseClass(IsochroneBaseClass):
             self.curves[i], self.mean_return_time_pro_point[i] = curve.trim_curve(self.mean_return_time_pro_point[i])
 
 
-def _plot(data, draw_style=None):
-    if len(data) != 0:
-        if draw_style is None:
-            plt.plot(data[:, 0], data[:, 1])
-        else:
-            plt.plot(data[:, 0], data[:, 1], draw_style)
+def _plot(data, *args, **kwargs): #, draw_style=None):
+    # if len(data) != 0:
+    #     if draw_style is None:
+    #         plt.plot(data[:, 0], data[:, 1])
+    #     else:
+    #         plt.plot(data[:, 0], data[:, 1], draw_style)
+    plt.plot(data[:, 0], data[:, 1], *args, **kwargs)
 
 
 def _plot_(data):

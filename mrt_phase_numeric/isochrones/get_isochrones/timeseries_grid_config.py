@@ -23,7 +23,7 @@ isochrone_config = {
 }
 
 init_config = {
-    'init_type': InitTypes.INIT_FROM_SCRATCH, # 'from_scratch',
+    'init_type': InitTypes.INIT_FROM_OBJECT, # 'from_scratch',
     # 'init_type': INIT_FROM_OBJECT,
     'data_type': DataTypes.TIMESERIES_GRID_TYPE,
     'multiple_branches': True,
