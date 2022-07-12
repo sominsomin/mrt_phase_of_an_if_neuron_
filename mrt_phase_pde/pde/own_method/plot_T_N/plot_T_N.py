@@ -49,9 +49,9 @@ if __name__ == '__main__':
     det_file_paths = '..\\..\\..\\..\\mrt_phase_numeric\\data\\results\\isochrones\\from_timeseries_grid\\deterministic\\D_0.0'
     stochastic = f'..\\..\\..\\mrt_phase_numeric\\data\\results\\isochrones\\from_timeseries\\stochastic\\D_{D}'
 
-    if D == 0.0:
-        isochrones = load_isochrones(det_file_paths)
-    else:
-        isochrones = load_isochrones(stochastic)
-    plot_isochrones(isochrones, plt, 'g--')
-    plt.xlim([-1,1])
+    # if D == 0.0:
+    #     isochrones = load_isochrones(det_file_paths)
+    # else:
+    #     isochrones = load_isochrones(stochastic)
+    # plot_isochrones(isochrones, plt, 'g--')
+    # plt.xlim([-1,1])
