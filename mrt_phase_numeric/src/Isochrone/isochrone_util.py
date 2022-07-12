@@ -12,6 +12,7 @@ def get_isochrone(isochrone: IsochroneBaseClass, phi: float = None, _save: bool 
             if isochrone.n_updates >= max_n_iterations or isochrone.has_reached_early_stopping():
                 print('max n iterations reached')
                 print(f'{phi}')
+                break
 
         isochrone.update_isochrone_single_iteration()
 

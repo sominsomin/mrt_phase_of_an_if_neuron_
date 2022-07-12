@@ -6,8 +6,8 @@ from mrt_phase_numeric.src.Isochrone.isochrone_util import get_isochrone
 from mrt_phase_numeric.src.Isochrone.InitHelper import IsochroneInitHelper
 from mrt_phase_numeric.src.DataTypes.DataTypes import DataTypes
 
-DEBUG_MODE = True
-# DEBUG_MODE = False
+# DEBUG_MODE = True
+DEBUG_MODE = False
 
 # TYPE = DataTypes.TIMESERIES_TYPE
 TYPE = DataTypes.TIMESERIES_GRID_TYPE
@@ -31,7 +31,7 @@ isochrone_init_helper = None
 error = 1
 
 # phi_inits = [0.2, 0.3, 0.4, 0.5]
-phi_inits = [0.0]
+phi_inits = [0.3, 0.4, 0.5]
     #0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
 # phi_inits = [0.2]
 phi_init_index = 0

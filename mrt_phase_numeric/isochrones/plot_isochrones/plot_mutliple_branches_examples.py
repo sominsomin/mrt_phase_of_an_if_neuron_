@@ -12,7 +12,7 @@ v_th = equation_config['v_th']
 tau_a = equation_config['tau_a']
 delta_a = equation_config['delta_a']
 
-phi = 0.6
+phi = 0.0
 D = 0.0
 
 

@@ -44,12 +44,14 @@ if __name__ == '__main__':
         f'$T_{{{N}}}(v,a)$ via simulation, $D={D}$')
         # f'\n $v_{{thr}}={v_th}$, $\\mu={mu}$, $\\tau_a={tau_a}$, $\\Delta_a={Delta_a}$')
 
-    plt.savefig(f'..\\img\\comparision_to_numerics_T_N_{N}_D_{D}_from_simulation.png')
+    # plt.savefig(f'..\\img\\comparision_to_numerics_T_N_{N}_D_{D}_from_simulation.png')
 
-    det_file_paths = '../../../../mrt_phase_numeric/data/results/isochrones/from_timeseries_grid/deterministic/D_0.0'
+    det_file_paths = '..\\..\\..\\..\\mrt_phase_numeric\\data\\results\\isochrones\\from_timeseries_grid\\deterministic\\D_0.0'
     stochastic = f'..\\..\\..\\mrt_phase_numeric\\data\\results\\isochrones\\from_timeseries\\stochastic\\D_{D}'
 
-    # isochrones = load_isochrones(det_file_paths)
-    # isochrones = load_isochrones(stochastic)
-    # plot_isochrones(isochrones, plt, 'g--')
+    if D == 0.0:
+        isochrones = load_isochrones(det_file_paths)
+    else:
+        isochrones = load_isochrones(stochastic)
+    plot_isochrones(isochrones, plt, 'g--')
     plt.xlim([-1,1])

@@ -204,7 +204,7 @@ class IsochroneBaseClass:
                         _plot(curve, color_scheme[l], label=f'isochrone branch {l}')
                 else:
                     _plot(self.curve)
-                plt.plot(point[0], point[1], 'x')
+                plt.plot(point[0], point[1], 'rx')
                 plt.xlabel('v')
                 plt.ylabel('a')
                 plt.legend()
@@ -616,10 +616,21 @@ class IsochroneTimeSeries(IsochroneSingleBranchBaseClass):
         for indice in indices:
             if self.debug_mode:
                 plt.clf()
+                # if hasattr(self, "curves"):
+                #     _plot_(self.curves)
+                # else:
+                #     _plot(self.curve)
                 if hasattr(self, "curves"):
-                    _plot_(self.curves)
+                    color_scheme = ['r', 'b', 'm']
+                    for l, curve in enumerate(self.curves):
+                        _plot(curve, color_scheme[l], label=f'isochrone branch {l}')
                 else:
                     _plot(self.curve)
+                plt.plot(_point[0], _point[1], 'rx')
+                plt.xlabel('v')
+                plt.ylabel('a')
+                plt.legend()
+
             t = self.get_time_until_line_crossing(_curve, indice)
             if t is not None:
                 t_list.append(t)
