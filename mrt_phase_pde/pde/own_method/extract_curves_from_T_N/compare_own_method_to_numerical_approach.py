@@ -9,6 +9,8 @@ from scipy.signal import savgol_filter
 from mrt_phase_pde.pde.own_method.extract_curves_from_T_N.extract_curves import get_curve_for_T_N
 from config import equation_config
 from mrt_phase_numeric.isochrones.plot_isochrones.plot_util import load_isochrones, plot_isochrones
+from mrt_phase_pde.pde.own_method.config_T_N import v_min, v_max, a_min, a_max
+
 
 mu = equation_config['mu']
 v_th = equation_config['v_th']
@@ -42,7 +44,7 @@ if __name__ == '__main__':
 
     plt.xlabel('v')
     plt.ylabel('a')
-    plt.ylim([0, 3])
+    plt.ylim([a_min, a_max])
     # plt.title(f'Isochrones for $\mu={mu}$, $\\tau_a={tau_a}$, $\Delta_a={delta_a}$')
     plt.title(f'$D={D}$')
     # plt.show()
