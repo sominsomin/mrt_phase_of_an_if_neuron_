@@ -16,10 +16,10 @@ def update_(v, a, y=0, offset=0, dt=None, D=None):
     # if spike then reset v_new
     if y == 1:
         v_new = 0.0
+        a_new = a + delta_a * y
     else:
         v_new = v + (mu - v - a) * dt + np.sqrt(2 * D * dt) * noise
-
-    a_new = a + 1 / tau_a * (-a + tau_a * delta_a * y * 1 / dt) * dt
+        a_new = a + 1 / tau_a * (-a + tau_a * delta_a * y * 1 / dt) * dt
 
     if v_new > v_th:
         y_new = 1
