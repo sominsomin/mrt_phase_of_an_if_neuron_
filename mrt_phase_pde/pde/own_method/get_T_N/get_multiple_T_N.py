@@ -1,4 +1,4 @@
-from mrt_phase_pde.pde.own_method.get_T_N.get_T_N_single import get_T_N
+from mrt_phase_pde.pde.own_method.get_T_N.get_T_N import get_T_N
 
 D_list = [0.0, 0.1, 0.25, 0.5, 1.0]
 

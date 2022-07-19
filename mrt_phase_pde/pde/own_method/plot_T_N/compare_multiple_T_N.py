@@ -37,11 +37,14 @@ def get_diff(D):
 def plot_T_N_over_time(D):
     diff_mean, diff_min, diff_max = get_diff(D)
 
+    n_vec = [int(n_ + 1) for n_ in n]
+
     plt.figure()
-    plt.plot(n, diff_mean, label='mean($T_N(v,a) - T_{N-1}(v,a)$)')
-    plt.plot(n, diff_max, label='max($T_N(v,a) - T_{N-1}(v,a)$)')
-    plt.plot(n, diff_min, label='min($T_N(v,a) - T_{N-1}(v,a)$)')
+    plt.plot(n_vec, diff_mean, label='mean($T_N(v,a) - T_{N-1}(v,a)$)')
+    plt.plot(n_vec, diff_max, label='max($T_N(v,a) - T_{N-1}(v,a)$)')
+    plt.plot(n_vec, diff_min, label='min($T_N(v,a) - T_{N-1}(v,a)$)')
     plt.xlabel('N')
+    plt.xticks(n_vec, n_vec)
     plt.ylabel('$T_N(v,a) - T_{{N-1}}(v,a)$')
     plt.title(f'$D = {D}$')
     plt.legend()
