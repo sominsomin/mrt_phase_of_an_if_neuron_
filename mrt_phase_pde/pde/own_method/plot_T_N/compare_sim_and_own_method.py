@@ -52,11 +52,13 @@ for i in range(0, 6):
     # plt.savefig(f'img\\compare_T_{n_1}_with_T_{n_2}_D_{D}.png')
 
 
-plt.plot(diff_mean, label='mean(d)')
-plt.plot(diff_min, label='min(d)')
-plt.plot(diff_max, label='max(d)')
-plt.plot(np.array(diff_mean) + np.array(diff_std), '--', label='mean(d) + std(d)')
-plt.plot(np.array(diff_mean) - np.array(diff_std), '--', label='mean(d) - std(d)')
+n_vec = list(range(1, len(diff_mean) + 1))
+
+plt.plot(n_vec, diff_mean, label='mean(d)')
+plt.plot(n_vec, np.array(diff_mean) - np.array(diff_max), label='min(d)')
+plt.plot(n_vec, diff_max, label='max(d)')
+plt.plot(n_vec, np.array(diff_mean) + np.array(diff_std), '--', label='mean(d) + std(d)')
+plt.plot(n_vec, np.array(diff_mean) - np.array(diff_std), '--', label='mean(d) - std(d)')
 plt.xlabel('N')
 plt.ylabel('$T_N(v,a) - T_{N,sim}(v,a)$')
 plt.ylim([-0.1, 0.1])
