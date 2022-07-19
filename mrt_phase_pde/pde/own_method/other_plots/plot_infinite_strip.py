@@ -20,7 +20,7 @@ v_th = equation_config['v_th']
 tau_a = equation_config['tau_a']
 Delta_a = equation_config['delta_a']
 
-D = .0
+D = .5
 
 v_min = -0.5
 v_max = 1
@@ -28,11 +28,12 @@ a_min = 0
 a_max = 1
 
 N = 5
-dt = 0.1
+dt = 0.01
 
+n_traj = 1
 
 if __name__ == '__main__':
-    pass
+    fig, axs = plt.subplots()
 
     v_init = .5
     a_init = .5
@@ -59,7 +60,7 @@ if __name__ == '__main__':
     for reset in np.where(np.array(y_all) == 1)[0]:
         plt.plot(v_all[reset], a_all[reset], 'rx')
 
-    da = 0.1
+    da = 0.2
     dv = 0.1
 
     plt.plot(v_all[0], a_all[0], 'bx')
@@ -75,10 +76,10 @@ if __name__ == '__main__':
         axs.add_line(line_y)
 
         # text
-        plt.text(i - dv, -i*Delta_a - da, '0')
+        plt.text(i - 0.5*dv, -i*Delta_a - da, '0')
         plt.text(i + v_th - dv, -i * Delta_a - da, '$v_{thr}$')
 
-        plt.text((i - i + v_th + dv)/2 + i - dv, a_max - Delta_a/3, f'$T_{{{N-i}}}$')
+        plt.text((i - i + v_th + dv)/2 + i - dv, a_max - Delta_a/3, f'$T_{{{N-i}}}$', fontsize=12)
 
         # arrow
         plt.arrow(i, a_max, 0.0 , 0.0, width=0.015, color='k')
@@ -93,15 +94,20 @@ if __name__ == '__main__':
             delta_a_line_max = -i * Delta_a + Delta_a #- da
             delta_a_line_v = i-1.5*dv
             line_delta_a = Line2D([delta_a_line_v, delta_a_line_v], [delta_a_line_min, delta_a_line_max], linestyle='-', color='k')
-            plt.arrow(delta_a_line_v, delta_a_line_min, 0.0, -.01, width=0.01, color='k', length_includes_head=True)
-            plt.arrow(delta_a_line_v, delta_a_line_max, 0.0, .01, width=0.01, color='k', length_includes_head=True)
+            plt.arrow(delta_a_line_v, delta_a_line_min + 0.01, 0.0, -.01, width=0.01, color='k', length_includes_head=True)
+            plt.arrow(delta_a_line_v, delta_a_line_max - 0.01, 0.0, .01, width=0.01, color='k', length_includes_head=True)
             axs.add_line(line_delta_a)
             plt.text(i - 3*dv, (delta_a_line_max - delta_a_line_min)/2 + delta_a_line_min, '$\\Delta_a$')
 
     # final line
     line_y = Line2D([i+v_th, i+v_th], [-i * Delta_a, a_max], linestyle='-', color='orange')
     axs.add_line(line_y)
-    plt.text(i + v_th + dv, (-i * Delta_a - a_max)/2 + a_max, 'l', color="orange")
+    plt.text(i + v_th + dv, (0 - a_max)/2 + a_max, 'l', color="orange")
+
+    # first line marked blue
+    line_y = Line2D([1, 1], [0, a_max], linestyle='-', color='b')
+    axs.add_line(line_y)
+    plt.text(1 + dv, (0 - a_max)/2 + a_max, "l'", color="b")
 
     plt.arrow(i+v_th, a_max, 0.0, 0.0, width=0.015, color='k')
     plt.text(i+v_th - dv, a_max, 'a')
