@@ -20,7 +20,8 @@ if __name__ == '__main__':
     # prob = ExitPointDistribution.load(f'data/epd_sim_D_{D}.pickle')
     # T_0 = T_0.load(f'data/T_0_D_{D}_sim.pickle')
     # T_N = T_N_class.load(f'result/T_N_15_D_{D}.pickle')
-    T_N = T_N_class.load(f'..\\data\\T_{N}_D_{D}_sim_n_thr_{N + 1}.pickle')
+    # T_N = T_N_class.load(f'..\\data\\T_{N}_D_{D}_sim_n_thr_{N}.pickle')
+    T_N = T_N_class.load(f'..\\result\\T_N_{N}_D_{D}.pickle')
     # T_N = T_N_class.load(f'result/T_N_0_D_{D}.pickle')
 
     # resize T_N for plot
@@ -41,10 +42,13 @@ if __name__ == '__main__':
     plt.ylabel('a')
     plt.ylim([0, a_max_plot])
     plt.title(
-        f'$T_{{{N}}}(v,a)$ via simulation, $D={D}$')
+        # f'$T_{{{N}}}(v,a)$ via simulation, $D={D}$')
+        f'$T_{{{N}}}(v,a)$, $D={D}$')
         # f'\n $v_{{thr}}={v_th}$, $\\mu={mu}$, $\\tau_a={tau_a}$, $\\Delta_a={Delta_a}$')
 
     # plt.savefig(f'..\\img\\comparision_to_numerics_T_N_{N}_D_{D}_from_simulation.png')
+    # plt.savefig(f'img\\T_N_{N}_D_{D}.png')
+    plt.savefig(f'img\\T_N_{N}_D_{D}_own_method.png')
 
     det_file_paths = '..\\..\\..\\..\\mrt_phase_numeric\\data\\results\\isochrones\\from_timeseries_grid\\deterministic\\D_0.0'
     stochastic = f'..\\..\\..\\mrt_phase_numeric\\data\\results\\isochrones\\from_timeseries\\stochastic\\D_{D}'

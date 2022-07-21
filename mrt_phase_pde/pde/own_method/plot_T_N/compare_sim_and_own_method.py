@@ -21,8 +21,8 @@ diff_max = []
 diff_min = []
 diff_std = []
 
-for i in range(0, 6):
-    T_1 = f'..\\data\\T_{i}_D_{D}_sim_n_thr_{i+1}.pickle'
+for i in range(1, 7):
+    T_1 = f'..\\data\\T_{i}_D_{D}_sim_n_thr_{i}.pickle'
     T_2 = f'..\\result\\T_N_{i}_D_{D}.pickle'
 
     t_1 = T_N.load(T_1)
